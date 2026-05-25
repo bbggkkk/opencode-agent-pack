@@ -1,6 +1,6 @@
 # Korean Creative Agents for opencode
 
-Korean-first creative writing agents for opencode. The pack separates writer and editor roles for fiction and lyrics, while supporting English when the user explicitly asks for it.
+Korean-first creative agents for opencode. The pack separates writer and editor roles for fiction and lyrics, while supporting English when the user explicitly asks for it. Also includes a research scientist agent for academic paper writing.
 
 ## Agents
 
@@ -10,26 +10,37 @@ Korean-first creative writing agents for opencode. The pack separates writer and
 | `novel-editor` | Reviews fiction for plot logic, character consistency, prose rhythm, pacing, and reader engagement. |
 | `lyricist` | Writes Korean-first lyrics for K-pop, ballad, hip-hop, indie, OST, and related styles. |
 | `lyric-editor` | Reviews lyrics for hook clarity, rhyme, flow, pronunciation, structure, and message clarity. |
+| `scientist` | Research scientist — analyzes project context, discovers patterns, and writes LaTeX papers. |
 
 ## Install & Setup
 
-### Interactive Installation (Recommended)
+### Option 1: Clone & Install (Recommended)
+
+```bash
+git clone https://github.com/bbggkkk/opencode-agent-pack.git
+cd opencode-agent-pack
+./install.sh
+```
+
+The script asks where to install:
+- **Option 1 (Project)**: installs to `.opencode/agents/` in the current directory
+- **Option 2 (Global)**: installs to `~/.config/opencode/agents/`
+
+### Option 2: One-liner Install
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | bash
 ```
 
-### Manual Installation
+### Option 3: Manual Copy
 
-**Install Globally:**
-
+**Global install:**
 ```bash
 mkdir -p ~/.config/opencode/agents
 cp agents/*.md ~/.config/opencode/agents/
 ```
 
-**Install In One Project:**
-
+**Per-project install:**
 ```bash
 mkdir -p .opencode/agents
 cp agents/*.md .opencode/agents/
@@ -44,13 +55,45 @@ opencode exit  # or Ctrl+D
 # Then restart opencode
 ```
 
-**Available agents:** `/novelist`, `/novel-editor`, `/lyricist`, `/lyric-editor`
+**Available agents:** `/novelist`, `/novel-editor`, `/lyricist`, `/lyric-editor`, `/scientist`
+
+## Usage Examples
+
+### Fiction Writing
+
+```text
+/novelist 어두운 도시 판타지 분위기의 1화 도입을 써줘.
+```
+
+### Fiction Editing
+
+```text
+/novel-editor 이 장면의 플롯과 캐릭터 일관성을 검토해줘.
+```
+
+### Lyric Writing
+
+```text
+/lyricist 90년대 발라드 감성으로 이별 후렴을 써줘.
+```
+
+### Lyric Editing
+
+```text
+/lyric-editor 이 가사의 훅과 운율을 개선해줘.
+```
+
+### Research Paper Writing
+
+```text
+/scientist 이 프로젝트의 실험 결과를 바탕으로 논문 초안을 작성해줘.
+```
 
 ## Language Policy
 
 Korean is the default language. Agents write and review with Korean sentence rhythm, natural dialogue, genre conventions, emotional continuity, and cliche avoidance in mind.
 
-English is supported when the user explicitly asks for English, provides an English draft, or requests bilingual variants.
+English is supported when the user explicitly asks for English, provides an English draft, or requests bilingual variants. The `scientist` agent supports bilingual LaTeX paper writing in both Korean and English.
 
 ## Copyright And Style Policy
 

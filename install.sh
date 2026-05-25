@@ -1,5 +1,5 @@
 #!/bin/bash
-# Korean Creative Agents - Interactive Installation Script
+# Korean Creative Agents for opencode - Interactive Installation Script
 # https://github.com/bbggkkk/opencode-agent-pack
 
 set -e
@@ -82,7 +82,7 @@ if [[ "$RUNNING_FROM_REPO" == "true" && -d "$SCRIPT_DIR/agents" ]]; then
     cp "$SCRIPT_DIR/agents"/*.md "$TARGET/"
 else
     # Download from GitHub
-    for agent in novelist novel-editor lyricist lyric-editor; do
+    for agent in novelist novel-editor lyricist lyric-editor scientist; do
         curl -sSL "$REPO_URL/agents/${agent}.md" -o "$TARGET/${agent}.md"
     done
 fi
@@ -99,4 +99,5 @@ echo "   /novelist     - 소설 작성자"
 echo "   /novel-editor - 소설 편집자"
 echo "   /lyricist     - 가사 작성자"
 echo "   /lyric-editor - 가사 편집자"
+echo "   /scientist    - 연구 과학자"
 echo "=================================================="
