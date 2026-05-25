@@ -14,7 +14,7 @@ Korean-first creative agents for opencode. The pack separates writer and editor 
 
 ## Install & Setup
 
-### Option 1: Clone & Install (Recommended)
+### Option 1: Clone & Interactive (Recommended)
 
 ```bash
 git clone https://github.com/bbggkkk/opencode-agent-pack.git
@@ -22,15 +22,20 @@ cd opencode-agent-pack
 ./install.sh
 ```
 
-The script asks where to install:
-- **Option 1 (Project)**: installs to `.opencode/agents/` in the current directory
-- **Option 2 (Global)**: installs to `~/.config/opencode/agents/`
+스크립트가 설치 위치를 물어봅니다:
+- **`1`** — 현재 프로젝트에 설치 (`.opencode/agents/`)
+- **`2`** — 전역으로 설치 (`~/.config/opencode/agents/`)
 
-### Option 2: One-liner Install
+### Option 2: One-liner (인자 전달)
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 1
+curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 2
 ```
+
+스크립트는 **항상 사용자 입력을 기다립니다**. 파이프 실행 시에는 인자(`1` 또는 `2`)를 반드시 전달해야 합니다.
+- `sh -s -- 1` → 프로젝트 설치
+- `sh -s -- 2` → 전역 설치
 
 ### Option 3: Manual Copy
 

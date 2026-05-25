@@ -30,27 +30,33 @@ echo "1) 현재 프로젝트에 설치  (.opencode/agents)"
 echo "2) 전역으로 설치          ($GLOBAL_TARGET)"
 echo ""
 
-# Check if running interactively
-if [[ ! -t 0 ]]; then
-    echo "⚠️  이 스크립트는 대화형으로 실행해야 합니다."
-    echo ""
-    echo "설치 방법:"
-    echo ""
-    echo "  git clone https://github.com/bbggkkk/opencode-agent-pack.git"
-    echo "  cd opencode-agent-pack"
-    echo "  ./install.sh"
-    echo ""
-    echo "또는 curl로 스크립트를 다운로드한 후 직접 실행:"
-    echo ""
-    echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh -o install.sh"
-    echo "  chmod +x install.sh"
-    echo "  ./install.sh"
-    echo ""
-    exit 1
+# If no argument provided, prompt interactively
+if [[ -z "$1" ]]; then
+    if [[ ! -t 0 ]]; then
+        echo "⚠️  이 스크립트는 대화형 실행 또는 인자 전달이 필요합니다."
+        echo ""
+        echo "사용법:"
+        echo ""
+        echo "  # 직접 실행 (대화형)"
+        echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh -o install.sh"
+        echo "  chmod +x install.sh"
+        echo "  ./install.sh"
+        echo ""
+        echo "  # 원라이너 (인자 전달)"
+        echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 1"
+        echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 2"
+        echo ""
+        echo "  # git clone 후 실행 (대화형)"
+        echo "  git clone https://github.com/bbggkkk/opencode-agent-pack.git"
+        echo "  cd opencode-agent-pack"
+        echo "  ./install.sh"
+        echo ""
+        exit 1
+    fi
+    read -p "선택 (1/2): " choice
+else
+    choice="$1"
 fi
-
-# Interactive input
-read -p "선택 (1/2): " choice
 
 case "$choice" in
     1)
