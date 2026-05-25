@@ -11,49 +11,47 @@ echo "=================================================="
 echo " KOREAN CREATIVE AGENTS FOR OPENCODE"
 echo "=================================================="
 echo ""
-echo "한국어 창작 에이전트 설치"
-echo ""
 
 # Detect if running from the repo or via curl
 RUNNING_FROM_REPO=false
 if [[ "$SCRIPT_DIR" == *"opencode-agent-pack"* ]] || [[ -d "$SCRIPT_DIR/agents" ]]; then
     RUNNING_FROM_REPO=true
-    echo "이 저장소에서 실행 중입니다."
+    echo "Running from the repository."
 fi
 
 # Detect available installation targets
 GLOBAL_TARGET="$HOME/.config/opencode/agents"
 PROJECT_TARGET="$SCRIPT_DIR/.opencode/agents"
 
-echo "설치 위치 선택:"
-echo "1) 현재 프로젝트에 설치  (.opencode/agents)"
-echo "2) 전역으로 설치          ($GLOBAL_TARGET)"
+echo "Select installation target:"
+echo "1) Current project  (.opencode/agents)"
+echo "2) Global install   ($GLOBAL_TARGET)"
 echo ""
 
 # If no argument provided, prompt interactively
 if [[ -z "$1" ]]; then
     if [[ ! -t 0 ]]; then
-        echo "⚠️  이 스크립트는 대화형 실행 또는 인자 전달이 필요합니다."
+        echo "This script requires interactive input or an argument."
         echo ""
-        echo "사용법:"
+        echo "Usage:"
         echo ""
-        echo "  # 직접 실행 (대화형)"
+        echo "  # Interactive (download then run)"
         echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh -o install.sh"
         echo "  chmod +x install.sh"
         echo "  ./install.sh"
         echo ""
-        echo "  # 원라이너 (인자 전달)"
+        echo "  # One-liner (pass argument)"
         echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 1"
         echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 2"
         echo ""
-        echo "  # git clone 후 실행 (대화형)"
+        echo "  # Clone then run (interactive)"
         echo "  git clone https://github.com/bbggkkk/opencode-agent-pack.git"
         echo "  cd opencode-agent-pack"
         echo "  ./install.sh"
         echo ""
         exit 1
     fi
-    read -p "선택 (1/2): " choice
+    read -p "Choose (1/2): " choice
 else
     choice="$1"
 fi
@@ -62,16 +60,15 @@ case "$choice" in
     1)
         TARGET="$PROJECT_TARGET"
         echo ""
-        echo "프로젝트 로컬 설치: $TARGET"
+        echo "Project-local install: $TARGET"
         ;;
     2)
         TARGET="$GLOBAL_TARGET"
         echo ""
-        echo "전역 설치: $TARGET"
+        echo "Global install: $TARGET"
         ;;
     *)
-        echo "❌ 잘못된 선택입니다."
-        echo "1 (프로젝트) 또는 2 (전역)을 입력해주세요."
+        echo "Invalid choice. Enter 1 (project) or 2 (global)."
         exit 1
         ;;
 esac
@@ -81,37 +78,37 @@ mkdir -p "$TARGET"
 
 # Copy/install agents
 echo ""
-echo "에이전트 설치 중..."
+echo "Installing agents..."
 
 if [[ "$RUNNING_FROM_REPO" == "true" && -d "$SCRIPT_DIR/agents" ]]; then
     # Copy from local repo
     cp "$SCRIPT_DIR/agents"/*.md "$TARGET/"
 else
     # Download from GitHub
-    for agent in 소설가 소설가-작성가 소설가-편집자 소설가-연구자 소설가-설정지킴이 소설가-오타쿠 작사가 작사가-작성가 작사가-편집자; do
+    for agent in novelist novelist-writer novelist-editor novelist-researcher novelist-loremaster novelist-otaku lyricist lyricist-writer lyricist-editor; do
         curl -sSL "$REPO_URL/agents/${agent}.md" -o "$TARGET/${agent}.md"
     done
 fi
 
-echo "✓ 설치 완료!"
+echo "Installation complete!"
 echo ""
 echo "=================================================="
-echo " opencode를 재시작하세요:"
-echo "   opencode exit  (또는 Ctrl+D)"
-echo " 그 다음 다시 실행하면 새 에이전트를 사용할 수 있습니다."
+echo " Restart opencode:"
+echo "   opencode exit  (or Ctrl+D)"
+echo " Then restart to use the new agents."
 echo ""
-echo " 사용 가능한 에이전트:"
+echo " Available agents:"
 echo ""
-echo "  [소설가 시스템]"
-echo "   /소설가              - 라우터 (피드백 루프 오케스트레이션)"
-echo "   /소설가-작성가        - 소설 창작"
-echo "   /소설가-편집자        - 소설 편집/피드백"
-echo "   /소설가-연구자        - 연구/LaTeX 논문"
-echo "   /소설가-설정지킴이    - 설정 정보 수집/정리"
-echo "   /소설가-오타쿠        - 설정 일관성 검증"
+echo "  [Novelist System]"
+echo "   /novelist               - Router (feedback loop orchestrator)"
+echo "   /novelist-writer        - Fiction writer"
+echo "   /novelist-editor        - Fiction editor"
+echo "   /novelist-researcher    - Research / LaTeX papers"
+echo "   /novelist-loremaster    - Setting archivist"
+echo "   /novelist-otaku         - Setting consistency verifier"
 echo ""
-echo "  [작사가 시스템]"
-echo "   /작사가         - 라우터 (창작/편집 자동 연결)"
-echo "   /작사가-작성가   - 가사 창작"
-echo "   /작사가-편집자   - 가사 편집/피드백"
+echo "  [Lyricist System]"
+echo "   /lyricist               - Router (writing/editing dispatcher)"
+echo "   /lyricist-writer        - Lyric writer"
+echo "   /lyricist-editor        - Lyric editor"
 echo "=================================================="

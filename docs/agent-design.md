@@ -5,47 +5,48 @@
 This pack uses a **hierarchical agent architecture** with two router agents at the top level, each managing specialized sub-agents.
 
 ```
-소설가 (Novelist Router) — feedback loop orchestrator
-├── 소설가-작성가 — fiction writing (scenes, dialogue, plot, narration)
-├── 소설가-편집자 — fiction editing (plot, character, prose, pacing)
-├── 소설가-연구자 — research & LaTeX paper writing
-├── 소설가-설정지킴이 — setting archivist (context retrieval from files)
-└── 소설가-오타쿠 — setting verifier (consistency checking)
+Novelist (Router) — feedback loop orchestrator
+├── novelist-writer — fiction writing (scenes, dialogue, plot, narration)
+├── novelist-editor — fiction editing (plot, character, prose, pacing)
+├── novelist-researcher — research & LaTeX paper writing
+├── novelist-loremaster — setting archivist (context retrieval from files)
+└── novelist-otaku — setting verifier (consistency checking)
 
-작사가 (Lyricist Router)
-├── 작사가-작성가 — lyric writing (K-pop, ballad, hip-hop, indie, OST)
-└── 작사가-편집자 — lyric editing (hook, rhyme, flow, pronunciation)
+Lyricist (Router)
+├── lyricist-writer — lyric writing (K-pop, ballad, hip-hop, indie, OST)
+└── lyricist-editor — lyric editing (hook, rhyme, flow, pronunciation)
 ```
 
 ## Feedback Loop
 
-The 소설가 router runs a **structured feedback loop** for all writing requests. Every draft passes through verification before delivery.
+The Novelist router runs a **structured feedback loop** for all writing requests. Every draft passes through verification before delivery.
 
 ```
- ① 설정지킴이 → searches project files, compiles setting document
+ ① Loremaster → searches project files, compiles setting document
         │
- ② 작성가 → writes draft based on setting document
+ ② Writer → writes draft based on setting document
         │
- ③ 오타쿠 → cross-examines draft against setting
+ ③ Otaku → cross-examines draft against setting
        ╱ ╲
     PASS  FAIL
       │      │
-      │   ④ 편집자 → fixes every flagged inconsistency
+      │   ④ Editor → fixes every flagged inconsistency
       │      │
       │   ⑤ → ③ re-verify (loop until PASS)
+      │
       ▼
   ⑥ final result delivered to user
 ```
 
 The same agents can also be invoked directly:
 
-| Command | What happens |
-|---------|-------------|
-| `/소설가 3화를 써줘` | Full feedback loop (①→②→③→④↺→⑥) |
-| `/소설가-설정지킴이 주인공 설정 정리해줘` | Setting document only |
-| `/소설가-오타쿠 이 초안 검증해줘` | Verification only |
-| `/소설가-오타쿠 PASS` | Verification passed |
-| `/소설가-오타쿠 FAIL + 리포트` | Needs revision |
+| Command | Behavior |
+|---------|----------|
+| `/novelist write Chapter 3` | Full feedback loop (①→②→③→④↺→⑥) |
+| `/novelist-loremaster collect setting on protagonist` | Setting document only |
+| `/novelist-otaku verify this draft` | Verification only |
+| `/novelist-otaku PASS` | Verification passed |
+| `/novelist-otaku FAIL + report` | Needs revision |
 
 ## Router Design
 
@@ -53,13 +54,13 @@ Each router agent analyzes the user's natural language request and **delegates**
 
 | Router | Input Signal | Routes To |
 |--------|-------------|-----------|
-| `소설가` | create, write, draft, scene, chapter | Full feedback loop → 설정지킴이 → 작성가 → 오타쿠 → 편집자 → 오타쿠 |
-| `소설가` | fix, review, feedback, revise, edit | `@소설가-편집자` → `@소설가-오타쿠` |
-| `소설가` | paper, latex, experiment, research | `@소설가-연구자` |
-| `소설가` | setting, context, 찾아줘 | `@소설가-설정지킴이` |
-| `소설가` | verify, check, 검증 | `@소설가-오타쿠` |
-| `작사가` | create, write, draft, verse, chorus, lyric | `@작사가-작성가` |
-| `작사가` | fix, review, feedback, revise, polish | `@작사가-편집자` |
+| `novelist` | create, write, draft, scene, chapter | Full feedback loop → loremaster → writer → otaku → editor → otaku |
+| `novelist` | fix, review, feedback, revise, edit | `@novelist-editor` → `@novelist-otaku` |
+| `novelist` | paper, latex, experiment, research | `@novelist-researcher` |
+| `novelist` | setting, context, lore, find | `@novelist-loremaster` |
+| `novelist` | verify, check, validate | `@novelist-otaku` |
+| `lyricist` | create, write, draft, verse, chorus, lyric | `@lyricist-writer` |
+| `lyricist` | fix, review, feedback, revise, polish | `@lyricist-editor` |
 
 Routers never attempt to perform the work themselves — they evaluate the request and hand off a complete brief to the sub-agent.
 
@@ -67,26 +68,26 @@ Routers never attempt to perform the work themselves — they evaluate the reque
 
 The design separates creation from feedback at every level:
 
-- **Writer agents** (`소설가-작성가`, `작사가-작성가`) produce drafts with high temperature (0.8)
-- **Editor agents** (`소설가-편집자`, `작사가-편집자`) diagnose problems with low temperature (0.4–0.45)
-- **Research agent** (`소설가-연구자`) combines analysis and writing with low temperature (0.3)
-- **Setting agents** (`소설가-설정지킴이`, `소설가-오타쿠`) provide factual grounding with low temperature (0.2)
-- **Router agents** (`소설가`, `작사가`) classify and delegate with low temperature (0.3)
+- **Writer agents** (`novelist-writer`, `lyricist-writer`) produce drafts with high temperature (0.8)
+- **Editor agents** (`novelist-editor`, `lyricist-editor`) diagnose problems with low temperature (0.4–0.45)
+- **Research agent** (`novelist-researcher`) combines analysis and writing with low temperature (0.3)
+- **Setting agents** (`novelist-loremaster`, `novelist-otaku`) provide factual grounding with low temperature (0.2)
+- **Router agents** (`novelist`, `lyricist`) classify and delegate with low temperature (0.3)
 
-The **설정지킴이 → 작성가 → 오타쿠 → 편집자 → 오타쿠** feedback loop ensures that every draft is:
-1. Grounded in established setting (설정지킴이)
-2. Creatively written (작성가)  
-3. Rigorously verified (오타쿠)
-4. Corrected if needed (편집자)
-5. Re-verified until clean (오타쿠 재검증)
+The **loremaster → writer → otaku → editor → otaku** feedback loop ensures that every draft is:
+1. Grounded in established setting (loremaster)
+2. Creatively written (writer)
+3. Rigorously verified (otaku)
+4. Corrected if needed (editor)
+5. Re-verified until clean (otaku)
 
 This separation helps users run a draft-review-rewrite loop without mixing creative generation and critique in a single role.
 
 ## Korean-First Behavior
 
-Korean is the default language. All agents prioritize natural Korean prose, believable dialogue, emotional continuity, Korean lyric pronunciation, and genre-specific expectations.
+Korean is the default language for creative writing. All agents prioritize natural Korean prose, believable dialogue, emotional continuity, Korean lyric pronunciation, and genre-specific expectations.
 
-English is available when requested, but English support should not weaken the Korean-first defaults. The `소설가-연구자` agent supports bilingual LaTeX paper writing in both Korean and English.
+English is available when requested, but English support should not weaken the Korean-first defaults. The `novelist-researcher` agent supports bilingual LaTeX paper writing in both Korean and English.
 
 ## Safety And Originality
 

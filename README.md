@@ -1,27 +1,40 @@
 # Korean Creative Agents for opencode
 
-계층형 한국어 창작 에이전트 팩입니다. **소설가**와 **작사가** 두 라우터가 요청을 분석하여 하위 전담 에이전트로 연결합니다.
+A hierarchical Korean creative agent pack for opencode. The **Novelist** and **Lyricist** routers analyze requests and delegate to specialized sub-agents through a structured feedback loop.
 
 ## Agents
 
-### 소설가 시스템
+### Novelist System
 
-| Agent | 역할 |
+| Agent | Role |
 |-------|------|
-| `/소설가` | **라우터** — 창작/편집/연구 요청 분석, 피드백 루프 오케스트레이션 |
-| `/소설가-작성가` | 장면, 대사, 플롯, 감정선, 회차형 원고 창작 |
-| `/소설가-편집자` | 플롯, 개연성, 캐릭터, 문체, 장면 리듬 분석 및 피드백 |
-| `/소설가-연구자` | 프로젝트 컨텍스트 분석 → LaTeX 논문 작성 |
-| `/소설가-설정지킴이` | 이전 맥락/파일에서 설정 정보 수집 및 구조화 |
-| `/소설가-오타쿠` | 초안과 설정 문서를 대조하여 일관성 철저 검증 |
+| `/novelist` | **Router** — analyzes requests, orchestrates the feedback loop |
+| `/novelist-writer` | Fiction writing: scenes, dialogue, plot, character emotion, episode drafts |
+| `/novelist-editor` | Fiction editing: plot logic, character consistency, prose rhythm, pacing |
+| `/novelist-researcher` | Research & LaTeX paper writing: experiment analysis, academic writing |
+| `/novelist-loremaster` | Setting archivist: searches files for setting info, compiles structured documents |
+| `/novelist-otaku` | Setting verifier: cross-examines drafts against setting for consistency |
 
-### 작사가 시스템
+### Lyricist System
 
-| Agent | 역할 |
+| Agent | Role |
 |-------|------|
-| `/작사가` | **라우터** — 창작/편집 요청 자동 분석 후 하위 에이전트로 위임 |
-| `/작사가-작성가` | K-pop, 발라드, 힙합, 인디, OST 가사 창작 |
-| `/작사가-편집자` | 훅, 운율, 발음감, 구조, 메시지 선명도 분석 및 피드백 |
+| `/lyricist` | **Router** — analyzes lyric writing/editing requests |
+| `/lyricist-writer` | Lyric writing: K-pop, ballad, hip-hop, indie, OST, and adjacent styles |
+| `/lyricist-editor` | Lyric editing: hook clarity, rhyme, flow, pronunciation, structure |
+
+## Feedback Loop
+
+The Novelist router runs a structured feedback loop for every writing request:
+
+```
+ ① Loremaster → collect setting documents from project files
+ ② Writer → write draft based on setting documents
+ ③ Otaku → verify draft against setting (PASS → ⑥, FAIL → ④)
+ ④ Editor → fix all Otaku-flagged inconsistencies
+ ⑤ → ③ re-verify (repeat until PASS)
+ ⑥ Return final result
+```
 
 ## Install & Setup
 
@@ -33,19 +46,19 @@ cd opencode-agent-pack
 ./install.sh
 ```
 
-스크립트가 설치 위치를 물어봅니다:
-- **`1`** — 현재 프로젝트에 설치 (`.opencode/agents/`)
-- **`2`** — 전역으로 설치 (`~/.config/opencode/agents/`)
+Prompts for install target:
+- **`1`** — Project-local install (`.opencode/agents/`)
+- **`2`** — Global install (`~/.config/opencode/agents/`)
 
-### Option 2: One-liner (인자 전달)
+### Option 2: One-liner (pass argument)
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 1
 curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 2
 ```
 
-- `sh -s -- 1` → 프로젝트 설치
-- `sh -s -- 2` → 전역 설치
+- `sh -s -- 1` → project install
+- `sh -s -- 2` → global install
 
 ### Option 3: Manual Copy
 
@@ -61,65 +74,51 @@ cp agents/*.md .opencode/agents/
 
 ### After Installation
 
-Restart opencode after installing or changing agent files:
+Restart opencode for changes to take effect:
 
 ```bash
 opencode exit  # or Ctrl+D, then restart
 ```
 
-## Feedback Loop
-
-소설가는 **설정지킴이→작성가→오타쿠→편집자→오타쿠** 순환을 통해 품질을 보장합니다.
-
-```
-① 설정지킴이 → 기존 파일에서 설정 정보 수집
-② 작성가 → 설정 문서 기반 초안 작성
-③ 오타쿠 → 초안과 설정 대조 검증 (FAIL → ④, PASS → ⑥)
-④ 편집자 → 오타쿠 리포트 기반 수정
-⑤ → ③ 재검증 (PASS까지 반복)
-⑥ 최종 결과 반환
-```
-
 ## Usage Examples
 
-### 소설가 라우터 (자동 연결)
+### Novelist Router (auto-routing with feedback loop)
 
 ```text
-/소설가 퇴마 판타지 1화 도입을 써줘
-  → ①설정지킴이 → ②작성가 → ③오타쿠 → (필요시 ④편집자 → ③재검증) → ⑥완료
+/novelist Write the opening scene of a dark fantasy Chapter 1
+  → ①Loremaster → ②Writer → ③Otaku → (④Editor → ③re-verify if needed) → ⑥Done
 
-/소설가 이 장면 전개가 느린데 고쳐줘
-  → @소설가-편집자 → @소설가-오타쿠 검증
+/novelist This scene's pacing feels slow, please fix it
+  → @novelist-editor → @novelist-otaku verify
 
-/소설가 프로젝트 실험 결과를 논문으로 작성해줘
-  → @소설가-연구자
+/novelist Write a LaTeX paper from this project's experiment results
+  → @novelist-researcher
 ```
 
-### 작사가 라우터 (자동 연결)
+### Standalone Sub-agent Calls
 
 ```text
-/작사가 이별 후회하는 발라드 후렴을 써줘
-  → @작사가-작성가에게 자동 위임
-
-/작사가 이 가사 훅이 약한데 다듬어줘
-  → @작사가-편집자에게 자동 위임
+/novelist-writer Write an urban fantasy Chapter 3 opening scene.
+/novelist-editor Review this chapter for plot and character consistency.
+/novelist-loremaster Collect all setting info about the main character.
+/novelist-otaku Verify this draft against the established setting.
 ```
 
-### 직접 하위 에이전트 호출
+### Lyricist Router
 
 ```text
-/소설가-작성가 어두운 도시 판타지 1화 도입을 써줘.
-/소설가-편집자 이 장면의 플롯과 캐릭터 일관성을 검토해줘.
-/소설가-연구자 이 프로젝트 분석해서 논문 초안 작성해줘.
-/작사가-작성가 90년대 발라드 감성으로 이별 후렴을 써줘.
-/작사가-편집자 이 가사의 훅과 운율을 개선해줘.
+/lyricist Write a sad ballad chorus about breakup regret
+  → @lyricist-writer
+
+/lyricist The hook in this lyric feels weak, polish it
+  → @lyricist-editor
 ```
 
 ## Language Policy
 
-Korean is the default language. Agents write and review with Korean sentence rhythm, natural dialogue, genre conventions, emotional continuity, and cliche avoidance in mind.
+Korean is the default language for creative writing. Agents write with Korean sentence rhythm, natural dialogue, genre conventions, emotional continuity, and cliche avoidance in mind.
 
-English is supported when the user explicitly asks for English, provides an English draft, or requests bilingual variants. The `소설가-연구자` agent supports bilingual LaTeX paper writing in both Korean and English.
+English is supported when the user explicitly asks for English, provides an English draft, or requests bilingual variants. The `novelist-researcher` agent supports bilingual LaTeX paper writing.
 
 ## Copyright And Style Policy
 
@@ -128,17 +127,17 @@ These agents should not imitate a living author, a specific copyrighted song, or
 Good requests:
 
 ```text
-어두운 도시 판타지 분위기의 1화 도입을 써줘.
-90년대 발라드 감성으로 이별 후렴을 써줘.
-K-pop 댄스곡처럼 강한 훅이 있는 가사를 써줘.
+Write the opening of a dark urban fantasy Chapter 1.
+Write a 90s ballad-style breakup chorus.
+Write K-pop dance song lyrics with a strong hook.
 ```
 
 Avoid requests like:
 
 ```text
-특정 작가 문체 그대로 써줘.
-특정 노래 후렴과 비슷하게 써줘.
-이 가사를 살짝 바꿔줘.
+Write this in the style of [specific author].
+Make it sound like [specific song].
+Slightly rewrite these existing lyrics.
 ```
 
 ## Examples
