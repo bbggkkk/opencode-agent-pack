@@ -88,7 +88,7 @@ if [[ "$RUNNING_FROM_REPO" == "true" && -d "$SCRIPT_DIR/agents" ]]; then
     cp "$SCRIPT_DIR/agents"/*.md "$TARGET/"
 else
     # Download from GitHub
-    for agent in novelist novel-editor lyricist lyric-editor scientist; do
+    for agent in 소설가 소설가-작성가 소설가-편집자 소설가-연구자 작사가 작사가-작성가 작사가-편집자; do
         curl -sSL "$REPO_URL/agents/${agent}.md" -o "$TARGET/${agent}.md"
     done
 fi
@@ -101,9 +101,15 @@ echo "   opencode exit  (또는 Ctrl+D)"
 echo " 그 다음 다시 실행하면 새 에이전트를 사용할 수 있습니다."
 echo ""
 echo " 사용 가능한 에이전트:"
-echo "   /novelist     - 소설 작성자"
-echo "   /novel-editor - 소설 편집자"
-echo "   /lyricist     - 가사 작성자"
-echo "   /lyric-editor - 가사 편집자"
-echo "   /scientist    - 연구 과학자"
+echo ""
+echo "  [소설가 시스템]"
+echo "   /소설가         - 라우터 (창작/편집/연구 자동 연결)"
+echo "   /소설가-작성가   - 소설 창작"
+echo "   /소설가-편집자   - 소설 편집/피드백"
+echo "   /소설가-연구자   - 연구/LaTeX 논문"
+echo ""
+echo "  [작사가 시스템]"
+echo "   /작사가         - 라우터 (창작/편집 자동 연결)"
+echo "   /작사가-작성가   - 가사 창작"
+echo "   /작사가-편집자   - 가사 편집/피드백"
 echo "=================================================="

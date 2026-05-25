@@ -1,22 +1,50 @@
 # Agent Design
 
-This pack provides five opencode agents:
+## Architecture
 
-| Agent | Role | Type |
-| --- | --- | --- |
-| `novelist` | fiction writer | creative |
-| `novel-editor` | fiction editor | review |
-| `lyricist` | lyric writer | creative |
-| `lyric-editor` | lyric editor | review |
-| `scientist` | research & LaTeX paper writing | research |
+This pack uses a **hierarchical agent architecture** with two router agents at the top level, each managing specialized sub-agents.
 
-The design separates creation from feedback. Writer agents produce drafts. Editor agents diagnose problems, explain trade-offs, and suggest revisions. This separation helps users run a draft-review-rewrite loop without mixing creative generation and critique in one role. The scientist agent extends the pack beyond creative writing into academic research writing.
+```
+소설가 (Novelist Router)
+├── 소설가-작성가 — fiction writing (scenes, dialogue, plot, narration)
+├── 소설가-편집자 — fiction editing (plot, character, prose, pacing)
+└── 소설가-연구자 — research & LaTeX paper writing
+
+작사가 (Lyricist Router)
+├── 작사가-작성가 — lyric writing (K-pop, ballad, hip-hop, indie, OST)
+└── 작사가-편집자 — lyric editing (hook, rhyme, flow, pronunciation)
+```
+
+## Router Design
+
+Each router agent analyzes the user's natural language request and **delegates** to the appropriate sub-agent via opencode's `@agent-name` syntax:
+
+| Router | Input Signal | Routes To |
+|--------|-------------|-----------|
+| `소설가` | create, write, draft, scene, chapter | `@소설가-작성가` |
+| `소설가` | fix, review, feedback, revise, edit | `@소설가-편집자` |
+| `소설가` | paper, latex, experiment, research | `@소설가-연구자` |
+| `작사가` | create, write, draft, verse, chorus, lyric | `@작사가-작성가` |
+| `작사가` | fix, review, feedback, revise, polish | `@작사가-편집자` |
+
+Routers never attempt to perform the work themselves — they evaluate the request and hand off a complete brief to the sub-agent.
+
+## Separation of Concerns
+
+The design separates creation from feedback at every level:
+
+- **Writer agents** (`소설가-작성가`, `작사가-작성가`) produce drafts with high temperature (0.8)
+- **Editor agents** (`소설가-편집자`, `작사가-편집자`) diagnose problems with low temperature (0.4–0.45)
+- **Research agent** (`소설가-연구자`) combines analysis and writing with low temperature (0.3)
+- **Router agents** (`소설가`, `작사가`) classify and delegate with low temperature (0.3)
+
+This separation helps users run a draft-review-rewrite loop without mixing creative generation and critique in a single role.
 
 ## Korean-First Behavior
 
-Korean is the default language. The agents prioritize natural Korean prose, believable dialogue, emotional continuity, Korean lyric pronunciation, and genre-specific expectations.
+Korean is the default language. All agents prioritize natural Korean prose, believable dialogue, emotional continuity, Korean lyric pronunciation, and genre-specific expectations.
 
-English is available when requested, but English support should not weaken the Korean-first defaults. The scientist agent supports bilingual output for LaTeX papers.
+English is available when requested, but English support should not weaken the Korean-first defaults. The `소설가-연구자` agent supports bilingual LaTeX paper writing in both Korean and English.
 
 ## Safety And Originality
 
@@ -43,6 +71,7 @@ curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/i
 - `2` → global install (`~/.config/opencode/agents/`)
 
 Manual copy is also supported:
+
 ```bash
 cp agents/*.md ~/.config/opencode/agents/
 ```
