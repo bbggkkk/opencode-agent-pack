@@ -104,7 +104,7 @@ cp -r agents/* .opencode/agents/
 Restart opencode for changes to take effect:
 
 ```bash
-opencode exit  # or Ctrl+D, then restart
+exit  # or Ctrl+D, then restart opencode
 ```
 
 ## 3-Level Franchise, Work & Volume Hierarchy Layout
