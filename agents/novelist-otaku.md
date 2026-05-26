@@ -1,6 +1,6 @@
 ---
 description: "Novelist-Otaku — Setting verifier: cross-examines drafts against established setting for consistency."
-mode: sub
+mode: subagent
 temperature: 0.2
 color: success
 permission:

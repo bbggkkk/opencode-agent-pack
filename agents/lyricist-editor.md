@@ -1,6 +1,6 @@
 ---
 description: "Lyricist-Editor — Lyric editor: analyzes hook clarity, rhyme, flow, pronunciation, structure, and message."
-mode: sub
+mode: subagent
 temperature: 0.45
 color: success
 permission:
