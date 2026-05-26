@@ -31,16 +31,30 @@ A hierarchical Korean creative agent pack for opencode. The **Novelist** and **L
 
 ## Feedback Loop
 
-The Novelist router runs a structured feedback loop for every writing request:
+The Novelist router runs a structured feedback loop for every writing request, using a deterministic setting-first hierarchy for automatic conflict resolution, strict verification (no safety bypasses), and a collaborative discussion protocol to handle unresolvable contradictions or user overrides:
 
 ```
- ① Loremaster → collect setting documents from project files
- ② Writer → write draft based on setting documents
- ③ Otaku → verify draft against setting (PASS → ⑥, FAIL → ④)
- ④ Editor → fix all Otaku-flagged inconsistencies
- ⑤ → ③ re-verify (repeat until PASS)
- ⑥ Return final result
+ ① Loremaster → collect setting & narrative state
+        │
+ ② Writer → write draft based on setting & narrative state
+        │
+ ③ Otaku → verify draft against setting, profile, & narrative state
+       ╱ ╲
+    PASS  FAIL
+      │      ├── [Resolved by Hierarchy] ──> ④ Editor → fix based on Otaku report & change log ──> ⑤ re-verify
+      │      └── [Unresolvable or User Intervention] ──> ⑥ Halt Loop & Initiate Collaborative Discussion
+      ▼
+  ⑦ Return final result
 ```
+
+### Loop Safety & Collaborative Discussion
+- **Setting-First Conflict Resolution Hierarchy**: When resolving contradictions, agents follow a strict priority order: 
+  - **Priority 1: Individual Entity Settings (개별 캐릭터/대상 설정 문서)** — Ultimate canon (e.g. character profiles).
+  - **Priority 2: General Lore & World-Building Settings (일반 세계관/시스템 설정 문서)** — Overrides plot progression.
+  - **Priority 3: Recent Narrative State (최근 서사 상태/이전 장 내용)** — Overrides transient user prompts.
+  - **Priority 4: User Brief / Transient Prompt (사용자 지시어)** — Lowest priority. Cannot violate established settings.
+- **Strict Verification**: Loop safety iteration limits and relaxed warnings are removed. Verification is always 100% strict.
+- **Collaborative Discussion Protocol**: If settings directly contradict each other or if the user intervenes, the loop halts, and the agent initiates a discussion presenting Priority 1, 2, and 3 settings details to align them.
 
 ## Install & Setup
 

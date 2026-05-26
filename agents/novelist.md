@@ -49,30 +49,39 @@ Before executing any routing rule (especially writing, editing, or research):
 
 ## Feedback Loop Protocol
 
-For **writing requests**, execute the full feedback loop. Do not skip steps. Ensure the unified Creative Profile is propagated to all steps in the loop.
+For **writing requests**, execute the full feedback loop. Do not skip steps. Ensure the unified Creative Profile and the gathered Narrative State are propagated to all steps in the loop.
+
+### Loop Safety & Collaborative Discussion Rules
+1. **Setting-First Conflict Resolution Hierarchy**: All agents must adhere to the setting priority order to resolve contradictions automatically:
+   - **Priority 1: Individual Entity Settings (개별 캐릭터/대상 설정 문서)** — Ultimate canon (e.g., character profiles, item sheets).
+   - **Priority 2: General Lore & World-Building Settings (일반 세계관/시스템 설정 문서)** — Overrides plot progression.
+   - **Priority 3: Recent Narrative State (최근 서사 상태/이전 장 내용)** — Overrides transient user prompts.
+   - **Priority 4: User Brief / Transient Prompt (사용자 지시어)** — Lowest priority. Cannot violate established settings.
+2. **Collaborative Discussion Halt**: If an unresolvable contradiction occurs (e.g., settings contradict each other, or the user intervenes to change a setting), the loop must **halt**. The agent must initiate a structured discussion with the user:
+   - Present the Priority 1, 2, and 3 settings related to the conflict.
+   - Explain the contradiction.
+   - Propose how the documents should be aligned.
+   - Wait for the user's input/discussion to resolve the contradiction before continuing.
 
 ```
- ① Loremaster → collect setting documents
+ ① Loremaster → collect setting & narrative state
         │
- ② Writer → write draft based on setting documents
+ ② Writer → write draft based on setting & narrative state
         │
- ③ Otaku → verify draft against setting
+ ③ Otaku → verify draft against setting, profile, & narrative state
        ╱ ╲
     PASS  FAIL
-      │      │
-      │   ④ Editor → fix based on Otaku report
-      │      │
-      │   ⑤ → ③ (re-verify, repeat until PASS)
-      │
+      │      ├── [Resolved by Hierarchy] ──> ④ Editor → fix based on Otaku report & change log ──> ⑤ re-verify
+      │      └── [Unresolvable or User Intervention] ──> ⑥ Halt Loop & Initiate Collaborative Discussion with User
       ▼
-  ⑥ Return final result
+  ⑦ Return final result
 ```
 
 ### Step-by-Step
 
-**① Collect Setting Documents**
+**① Collect Setting Documents & Narrative State**
 ```
-@novelist-loremaster: Collect all setting information for: [target characters/places/items]
+@novelist-loremaster: Collect all setting information for: [target characters/places/items] AND retrieve the recent Narrative State (previous episode summary, character states, active plot threads, time of day).
 Include alignment constraints from:
 [Creative Profile]
 ```
@@ -82,15 +91,19 @@ Include alignment constraints from:
 @novelist-writer: [user request brief]
 Creative Profile:
 [Creative Profile]
+Narrative State:
+[loremaster narrative state output]
 Reference setting documents:
-[loremaster output]
+[loremaster lore output]
 ```
 
 **③ Verify**
 ```
-@novelist-otaku: Verify the following draft against the setting document and Creative Profile.
+@novelist-otaku: Verify the following draft against the setting document, Creative Profile, and Narrative State (specifically checking transition flow).
 Creative Profile:
 [Creative Profile]
+Narrative State:
+[...]
 Setting document:
 [...]
 Draft:
@@ -99,24 +112,30 @@ Draft:
 
 **④ Fix** (only when Otaku returns FAIL)
 ```
-@novelist-editor: Fix the draft based on the Otaku report below. Make sure to adhere to the Creative Profile.
+@novelist-editor: Fix the draft based on the Otaku report below. Make sure to adhere to the Creative Profile and Narrative State. Maintain a Change Log to prevent circular or conflicting edits. Resolve any contradictions according to the Priority Hierarchy.
 Creative Profile:
 [Creative Profile]
+Narrative State:
+[...]
 Otaku report:
 [...]
 Draft:
 [...]
+Previous changes made (Change Log):
+[...]
 ```
 
-**⑤ Re-verify** → go back to step ③, repeat until PASS
+**⑤ Re-verify** → go back to step ③ (repeat until PASS)
 
-**⑥ Done** — deliver the final result to the user once Otaku passes
+**⑥ Halt Loop & Initiate Collaborative Discussion** → If an unresolvable contradiction is detected or the user intervenes, halt the loop, present the Priority 1, 2, 3 details, and suggest how to align them to begin a discussion.
+
+**⑦ Done** — deliver the final result to the user.
 
 ## Routing Rules
 
 | Request | Route | Notes |
 |---------|-------|-------|
-| Writing (create, write, draft, scene, chapter, episode) | Full feedback loop (①→②→③→④↺→⑥) | Always run the full loop |
+| Writing (create, write, draft, scene, chapter, episode) | Full feedback loop (①→②→③→④↺→⑦) | Always run the full loop |
 | Editing (fix, review, feedback, revise, improve) | `@novelist-editor` → `@novelist-otaku` verify | Even simple edits get Otaku verification |
 | Research (paper, latex, experiment, analyze) | `@novelist-researcher` | Separate workflow |
 | Setting only (setting, lore, context, find) | `@novelist-loremaster` only | Standalone call |

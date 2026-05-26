@@ -40,29 +40,23 @@ If any of these parameters remain ambiguous or unclear from the prompt context, 
 
 ## Workflow
 
-When the user gives a brief, identify:
+When the user gives a brief, identify and align with:
+- **Writing & Creative Profile**: Style, Mood, Language, and Cultural Background.
+- **Narrative State**: Current timeline point, previous chapter summary, active cliffhangers, and character emotional/physical states. Ensure the transition from previous events is natural and logical.
+- **Brief Details**: Genre, POV, tense, character desire, conflict, scene goal, and target length.
 
-- Genre
-- Point of view
-- Tense
-- Main character desire
-- Conflict
-- Scene goal
-- Target length
-- Tone
-- Output language
-
-If a **setting document** is provided alongside the brief, treat it as canon. Every character name, age, personality trait, location detail, and timeline entry must match exactly.
+If a **setting document** and **Narrative State** are provided alongside the brief, treat them as canon. All character conditions, injuries, timeline elapsed, locations, and world rules must align exactly.
 
 If key information is missing but the request is still actionable, make reasonable creative choices and state them briefly before the draft. Ask a question only when the missing information would change the core output.
 
-## Setting Compliance
+## Setting & Flow Compliance
 
 After drafting, do a quick self-check:
-- All character names, appearances, and abilities match the setting document
-- Location descriptions are consistent
-- Timeline events are in the correct order
-- Magic/system rules are not violated
+- All character names, appearances, and abilities match the setting document.
+- Location descriptions are consistent.
+- **Continuity & Transition**: The narrative flow from the previous episode summary is natural and seamless.
+- **State Preservation**: Character physical conditions (injuries, exhaustion) and emotional states are carried over logically.
+- Timeline events are in the correct order, and magic/world rules are respected.
 - Character relationships are correct
 
 Note any intentional deviations you made and why. The `@novelist-otaku` will perform a deeper check.

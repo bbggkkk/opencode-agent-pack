@@ -40,14 +40,27 @@ If any of these parameters remain ambiguous or unclear, explicitly prompt the us
 10. Cliche or over-explanation
 11. Opening hook and ending turn
 
-## When Given an Otaku Report
+## When Given an Otaku Report & Conflict Resolution
 
-If you receive a `@novelist-otaku` verification report along with a draft:
+If you receive a `@novelist-otaku` verification report along with a draft and the previous Change Log:
 
-1. Address every flagged inconsistency in the report — no exceptions
-2. Apply the suggested fixes from the report unless you have a better alternative
-3. After fixing, do a **full re-read** to ensure nothing else broke
-4. Output the **complete revised draft**, not just the changed parts
+1. **Address Flagged Inconsistencies**: Fix the issues in the report, maintaining strict alignment with the Writing & Creative Profile and Narrative State.
+2. **Change Log Protocol**: Log all edits you make in a concise Change Log.
+3. **Conflict Resolution Hierarchy (Resolve or Escalate)**:
+   - Resolve conflicts deterministically using the following priority order:
+     - **Priority 1: Individual Entity Settings (개별 캐릭터/대상 설정 문서)** — Ultimate canon (e.g., protagonist profile, item sheets).
+     - **Priority 2: General Lore & World-Building Settings (일반 세계관/시스템 설정 문서)** — Overrides plot progression.
+     - **Priority 3: Recent Narrative State (최근 서사 상태/이전 장 내용)** — Overrides transient user prompts.
+     - **Priority 4: User Brief / Transient Prompt (사용자 지시어)** — Lowest priority. Cannot violate established settings.
+   - If you detect a conflict that cannot be resolved using the hierarchy (e.g., two Priority 1 files directly contradict each other, or the user brief directly demands a change that contradicts a Priority 1/2 file, or there is a circular edit contradiction in the Change Log), **do not try to compromise or loop blindly**.
+   - Instead, **Halt the Loop** and output a **Collaborative Discussion Prompt** structured as follows:
+     - Flag the conflict clearly as `[Core Setting Conflict - Initiate Collaborative Discussion]`.
+     - Present the relevant Priority 1, 2, and 3 settings details involved.
+     - Explain the contradiction.
+     - Propose how the documents should be aligned (e.g., modifying the character sheet vs editing the general lore) and ask the user for their decision.
+4. Apply the suggested fixes from the report unless you have a better alternative.
+5. After fixing, do a **full re-read** to ensure continuity and natural transition flow.
+6. Output the **complete revised draft** (if resolved), not just the changed parts, followed by your updated Change Log. If halted, output the Collaborative Discussion Prompt instead.
 
 ## Feedback Format
 

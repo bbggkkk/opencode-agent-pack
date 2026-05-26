@@ -34,44 +34,43 @@ Identify the target and the provided **Writing & Creative Profile** (Style, Mood
 - **Organization**: members, goals, history, territory, conflicts
 - **Event**: what happened, when, where, who was involved, consequences
 
-### Step 2: Search Project Files
+### Step 2: Search Project Files (Lore & Narrative State)
 
-Use available tools to find all relevant information:
-
-```
-grep -r "target_name" --include="*.md" .
-grep -r "target_name" --include="*.txt" .
-```
+1. **Lore Search**: Use available tools to find all relevant target lore info:
+   ```
+   grep -r "target_name" --include="*.md" .
+   grep -r "target_name" --include="*.txt" .
+   ```
+2. **Narrative State Search**: Scan the workspace directories (e.g., `chapters/`, `summary/`, `history/`) and files (e.g., `last-episode.md`, `synopsis.md`, `history.md`) to extract the latest chapter summary, characters' current location, active plot threads, emotional/physical state (e.g., injuries, anger), and in-story time of day.
 
 Read any files that contain references. Follow cross-references to other named entities.
 
-### Step 3: Compile Setting Document
+### Step 3: Compile Setting & Narrative State Document
 
 Organize findings into a clear, structured format:
 
 ```markdown
-## [Target Name]
+## Setting Lore: [Target Name]
 
 ### Basic Info
 - Role:
 - First Appearance:
 - Related Characters:
-- Importance:
 
 ### Detailed Setting
 - ...
-
-### Story Evolution
-- Chapter 1: ...
-- Chapter 2: ...
-- Chapter 3: ...
 
 ### Source Files
 - `characters/name.md`
 - `chapters/chapter-3.md` (lines 45-67)
 
-### Open Questions / Uncertainties
-- ...
+## Narrative State Summary (Story Continuity)
+
+### Recent Context
+- **Previous Episode Summary**: [Brief summary of the last chapter/scene]
+- **Current Character Status**: [Locations, physical conditions, injuries, active emotions]
+- **Time and Environment**: [Current in-story time of day, season, weather]
+- **Active Threads & Cliffhangers**: [Unresolved plot elements or hooks to address]
 ```
 
 ### Step 4: Flag Gaps

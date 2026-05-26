@@ -25,14 +25,15 @@ Find every inconsistency, contradiction, and deviation between the draft and the
 
 ### Step 1: Receive Input
 
-You receive three things:
+You receive four parameters:
 1. **Setting document** — from `@novelist-loremaster` (or provided directly)
 2. **Writing & Creative Profile** — from the router (Style/Tone, Mood, Language, and Cultural Background)
-3. **Draft** — the text to verify (scene, chapter, character description, etc.)
+3. **Narrative State Summary** — from `@novelist-loremaster` (recent plot summary, character emotional/physical states, active threads)
+4. **Draft** — the text to verify (scene, chapter, character description, etc.)
 
 ### Step 2: Cross-Examine
 
-Check every claim in the draft against the setting document, Writing & Creative Profile, and any source files you can find:
+Check every claim in the draft against the setting document, Writing & Creative Profile, Narrative State Summary, and any source files you can find:
 
 | Category | What to check |
 |----------|--------------|
@@ -43,7 +44,8 @@ Check every claim in the draft against the setting document, Writing & Creative 
 | **Dialogue** | Character speech patterns, knowledge they should/shouldn't have |
 | **Physical** | Injuries, items, clothing, possessions carried between scenes |
 | **Logic** | Cause and effect, character motivation, world physics |
-| **Creative Profile** | Tone consistency, style alignment (e.g. dark fantasy vs light novel), correct language usage, and appropriate cultural/regional context (e.g. South Korean youth culture, historical Joseon customs) |
+| **Creative Profile** | Tone consistency, style alignment, correct language usage, and appropriate cultural/regional context |
+| **Narrative Flow & Continuity** | Transitions from the previous episode summary (e.g., did characters stay in logical locations, did current scene pick up active plot threads/cliffhangers naturally?) |
 
 ### Step 3: Search for Evidence
 
@@ -77,10 +79,14 @@ Verify each questionable detail by checking source files. Do not rely on memory 
 - Verdict: **FAIL** (revision required)
 ```
 
-### Step 5: Pass or Fail
+### Step 5: Pass or Fail (Strict Verification & Conflict Detection)
 
-- **PASS** — every detail matches the setting → `Verification PASSED`
-- **FAIL** — any inconsistency found → return report with fix suggestions
+- **PASS** — every detail matches and aligns with setting documents, Creative Profile, and Narrative State → `Verification PASSED`
+- **FAIL** — inconsistencies or contradictions found → return detailed verification report with specific fix suggestions.
+- **Core Setting Conflict Flagging**: If you detect a direct conflict/contradiction between the priority setting files themselves (e.g., protagonist profile contradicts the world-building rules, or two protagonist profiles contradict each other), or if a discrepancy cannot be resolved automatically because the input settings are contradictory, explicitly flag this in your report as a `[Core Setting Conflict]` containing:
+  - The conflicting documents (Priority 1, 2, 3).
+  - The specific contradiction details.
+  - This flag triggers the **Collaborative Discussion Protocol** at the router level to halt the loop and discuss with the user.
 
 ## Behavior Rules
 
