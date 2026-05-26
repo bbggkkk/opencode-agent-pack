@@ -25,15 +25,15 @@ Ensure that compiled novels are 100% compliant with standard EPUB 2.0/3.0 valida
 
 ### Step 1: Gather Inputs
 You will receive:
-1. **Active Volume Context**: Active Volume Number and Active Volume Path (e.g. `volume-2/`).
-2. **Book & Series Metadata**: Load book title, volume title, author, and language from `series-bible.md` (or local `[Active Volume Path]outline.md` if bible is not present).
-3. **Manuscript Chapters**: Final, verified raw text drafts located in `[Active Volume Path]drafts/`.
+1. **Active Hierarchy Context**: Active Work Path (e.g. `work-a/` or `./` for standalone) and Active Volume Context (Active Volume Number and Active Volume Path, e.g. `volume-2/`).
+2. **Book & Series Metadata**: Load book title, volume title, author, and language from `[Active Work Path]series-bible.md` (or local `[Active Work Path][Active Volume Path]outline.md` if bible is not present).
+3. **Manuscript Chapters**: Final, verified raw text drafts located in `[Active Work Path][Active Volume Path]drafts/`.
 4. **Target Layout Style**: e.g., "Web Novel style" (paragraph margin gaps, no indents) or "Traditional style" (first-line indentation, no paragraph gaps).
 
 ### Step 2: Create Temp Directory Structure
 Create a temporary directory `epub_temp` in the active volume path to construct the EPUB assets:
 ```text
-[Active Volume Path]epub_temp/
+[Active Work Path][Active Volume Path]epub_temp/
 ├── mimetype
 ├── META-INF/
 │   └── container.xml
@@ -97,13 +97,13 @@ Create a temporary directory `epub_temp` in the active volume path to construct 
 ### Step 4: Package Using `zip`
 Run these exact commands in the workspace terminal (using your `bash` capability) to package the assets inside the active volume folder:
 ```bash
-cd [Active Volume Path]epub_temp
+cd [Active Work Path][Active Volume Path]epub_temp
 zip -0 -X ../volume-[Active Volume Number].epub mimetype
 zip -r -9 ../volume-[Active Volume Number].epub META-INF OEBPS
 cd ..
 rm -rf epub_temp
 ```
-*Note: Storing the `mimetype` file first with no compression (`-0`) and no extra attributes (`-X`) is mandatory for EPUB compliance. The output is compiled to e.g. `volume-2/volume-2.epub`.*
+*Note: Storing the `mimetype` file first with no compression (`-0`) and no extra attributes (`-X`) is mandatory for EPUB compliance. The output is compiled to e.g. `[Active Work Path][Active Volume Path]volume-[Active Volume Number].epub`.*
 
 ## Behaviors and Guidelines
 

@@ -82,13 +82,13 @@ Each router agent analyzes the user's natural language request and **delegates**
 
 Routers never attempt to perform the work themselves — they evaluate the request and hand off a complete brief to the sub-agent.
 
-## Multi-Volume & Series Architecture
+## 3-Level Franchise, Work & Volume Hierarchy Architecture
 
-The system supports dynamically expanding series through an isomorphic multi-volume layout:
-- **Global settings (`settings/`)**: World rules, magic systems, and base character profiles remain identical for all volumes.
-- **Series Bible (`series-bible.md`)**: Acts as a central ledger tracking the chronological sequence, summaries of previous volumes, character status evolution (ages, injuries), and unresolved plot threads.
-- **Volume Directories (`volume-N/`)**: Individual folders for each volume. A single-volume project utilizes `volume-1/`, while sequels add `volume-2/` and so forth.
-- **Volume Routing**: The router detects the targeted volume from user parameters or folder structures, directing `@novelist-loremaster` to fetch previous summaries from the Series Bible, and `@novelist-publisher` to output compiled `.epub` files directly in `volume-N/`.
+The system supports dynamically expanding shared-universe franchises, multi-volume series, or standalone novels through an isomorphic 3-level hierarchy layout:
+- **Franchise Level (Global settings - `settings/` at root)**: World rules, magic systems, and base character profiles that are shared across all works in the same universe.
+- **Work Level (Specific novel/series - `[Active Work Path]`)**: A subdirectory representing a specific work containing its own `series-bible.md` ledger and work-specific `settings/` local overrides/additions. If `series-bible.md` is at the project root, the project is treated as a standalone work (root acts as both Franchise and Work).
+- **Volume Level (Individual books - `[Active Work Path][Active Volume Path]`)**: Individual folders for each volume (e.g. `volume-1/`, `volume-2/`) containing local outlines (`outline.md`) and chapter drafts (`drafts/`).
+- **Cascading Context Routing**: The router detects the active Work directory and active Volume number/path from the request context or directory structure. It propagates this `Hierarchy Context` (`Active Work Path`, `Active Volume Number`, `Active Volume Path`) to sub-agents. The `@novelist-loremaster` cascades the settings resolution (Franchise settings + Work local overrides + Series Bible evolution log + Volume narrative state), and `@novelist-publisher` compiles EPUBs using the system `zip` utility relative to the volume path.
 
 ## Separation of Concerns
 

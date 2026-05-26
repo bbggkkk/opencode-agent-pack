@@ -42,9 +42,9 @@ If any of these parameters remain ambiguous or unclear from the prompt context, 
 
 When the user gives a brief, identify and align with:
 - **Writing & Creative Profile**: Style, Mood, Language, and Cultural Background.
-- **Active Volume Context**: The active volume number and volume directory path (e.g., `volume-2/`).
-- **Narrative State & Series Bible**:
-  - Summaries of previous volumes (for long-term backstory consistency).
+- **Active Hierarchy Context**: Active Work Path (e.g. `work-a/` or `./` for standalone) and Active Volume Path (e.g., `volume-2/`).
+- **Narrative State & Series Bible (Work Level)**:
+  - Backstory summaries of previous volumes retrieved from `series-bible.md` (for long-term backstory consistency).
   - Current timeline point, previous chapter summary, active cliffhangers, and character emotional/physical states. Ensure the transition from previous events is natural and logical.
   - **Character Evolution Log**: Adhere strictly to the character states (ages, injuries, relationship modifications) designated in the Series Bible for the active volume.
   - **Unresolved Plot Threads**: Incorporate, foreshadow, or resolve active subplots designated for this volume as planned.

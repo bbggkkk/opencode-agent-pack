@@ -25,12 +25,13 @@ Find every inconsistency, contradiction, and deviation between the draft and the
 
 ### Step 1: Receive Input
 
-You receive five parameters:
+You receive six parameters:
 1. **Setting document** — from `@novelist-loremaster` (or provided directly)
 2. **Writing & Creative Profile** — from the router (Style/Tone, Mood, Language, and Cultural Background)
 3. **Accumulated Verified Text (Prefix Context)** — previously verified text. Treat this as absolute canon for continuation.
 4. **Draft of Next Beat** — the newly generated paragraph/beat to verify.
 5. **Scene Outline** — the decomposed scene beats or paragraph outlines.
+6. **Active Hierarchy Context** — Active Work Path (e.g. `work-a/` or `./` for standalone), Active Volume Number, and Active Volume Path (e.g. `volume-N/`).
 
 ### Step 2: Cross-Examine (Strict Next-Beat Verification)
 
@@ -50,8 +51,10 @@ Your job is to cross-examine *only* the **Draft of Next Beat** for absolute cons
 
 ### Step 3: Search for Evidence
 
-```
-grep -r "target_name" --include="*.md" .
+Search the global Franchise `settings/`, Work local `[Active Work Path]settings/` (if it exists), and work Series Bible `[Active Work Path]series-bible.md`:
+```bash
+grep -r "target_name" --include="*.md" settings/
+grep -r "target_name" --include="*.md" [Active Work Path]settings/
 ```
 
 Verify each questionable detail by checking source files. Do not rely on memory alone.

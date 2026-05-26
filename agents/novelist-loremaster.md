@@ -34,20 +34,23 @@ Identify the target and the provided **Writing & Creative Profile** (Style, Mood
 - **Organization**: members, goals, history, territory, conflicts
 - **Event**: what happened, when, where, who was involved, consequences
 
-### Step 2: Search Project Files (Global Settings & Series Bible)
+### Step 2: Search Project Files (Franchise, Work, & Volume Hierarchy)
 
-1. **Volume & Paths Scan**: Check the active volume number $N$ and path (e.g., `volume-2/`) passed in the prompt.
-2. **Lore Search (Global & Local)**: Search for target settings in the global `settings/` directory and any local volume settings directories (e.g., `volume-N/settings/`):
+1. **Hierarchy Context Scan**: Check the active Work path `[Active Work Path]` and active Volume path `[Active Volume Path]` (e.g., `volume-2/`) passed in the prompt.
+2. **Lore Search (Franchise Global & Work Local)**:
+   - Search the global **Franchise** settings: `settings/` directory at the project root workspace.
+   - Search the local **Work** settings: `[Active Work Path]settings/` directory (if it exists). Local settings override or supplement global settings.
    ```
    grep -r "target_name" --include="*.md" settings/
-   grep -r "target_name" --include="*.md" [Volume_Path]
+   grep -r "target_name" --include="*.md" [Active Work Path]settings/
    ```
-3. **Series Bible Check**:
-   - Locate `series-bible.md` at the project root.
-   - If $N > 1$, retrieve the summaries of all previous volumes (Volumes $1 \dots N-1$) to serve as the overarching backstory.
-   - Read the **Character Evolution Log** for the active volume $N$ to apply status modifications (such as injuries, status changes, or relationship shifts) to characters in the draft.
-   - Retrieve **Active Plot Threads** that are marked for resolution in Volume $N$.
-4. **Local Volume Narrative State Search**: Scan the active `volume-N/drafts/` (or equivalent drafts folder) to extract the recent episode summary, character locations, and current emotional/physical states from the previous chapters of the *current* volume.
+3. **Series Bible Check (Work Level)**:
+   - Locate `[Active Work Path]series-bible.md` (the Series Bible for this specific work).
+   - If Volume $N > 1$, retrieve the summaries of all previous volumes (Volumes $1 \dots N-1$) of this work to compile the backstory.
+   - Read the **Character Evolution Log** for Volume $N$ in `[Active Work Path]series-bible.md` to compile character status adjustments (ages, injuries, status changes).
+   - Retrieve **Active Plot Threads** scheduled for resolution in this volume.
+4. **Local Volume State Search (Volume Level)**:
+   - Scan the drafts folder `[Active Work Path][Active Volume Path]drafts/` to extract the recent episode summary, character locations, and current emotional/physical states from the previous chapters of the *current* volume.
 
 Read any files that contain references. Follow cross-references to other named entities.
 

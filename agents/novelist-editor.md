@@ -44,9 +44,9 @@ If any of these parameters remain ambiguous or unclear, explicitly prompt the us
 
 ## When Given an Otaku Report & Conflict Resolution
 
-If you receive a `@novelist-otaku` verification report along with the Next Beat Draft, the Accumulated Verified Text (Prefix Context), the Active Volume Context, and the previous Change Log:
+If you receive a `@novelist-otaku` verification report along with the Next Beat Draft, the Accumulated Verified Text (Prefix Context), the Active Hierarchy Context (Active Work Path and Active Volume Path), and the previous Change Log:
 
-1. **Address Flagged Inconsistencies & Formatting**: Fix the issues in the report and enforce strict Web Novel formatting in the **Next Beat Draft**. Maintain strict alignment with the Writing & Creative Profile, Accumulated Verified Text, active volume settings, and lore settings.
+1. **Address Flagged Inconsistencies & Formatting**: Fix the issues in the report and enforce strict Web Novel formatting in the **Next Beat Draft**. Maintain strict alignment with the Writing & Creative Profile, Accumulated Verified Text, active work/volume settings, and Franchise global lore settings.
 2. **Prefix-Constrained Revision**: Treat the **Accumulated Verified Text** as absolute, unchangeable canon. You must NOT modify any part of it. Ensure your edited version of the Next Beat Draft connects seamlessly and naturally to the exact ending of the prefix text.
 3. **Change Log Protocol**: Log all edits you make in a concise Change Log.
 4. **Conflict Resolution Hierarchy (Resolve or Escalate)**:

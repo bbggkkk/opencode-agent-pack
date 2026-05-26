@@ -107,29 +107,52 @@ Restart opencode for changes to take effect:
 opencode exit  # or Ctrl+D, then restart
 ```
 
-## Series & Multi-Volume Writing Layout
+## 3-Level Franchise, Work & Volume Hierarchy Layout
 
-To support writing long-running multi-volume series, projects use a unified, isomorphic directory layout. A single-volume book simply has one volume folder (`volume-1/`), which can scale dynamically by adding `volume-2/`, `volume-3/`, etc.
+To support writing complex shared-universe franchises, multi-volume series, or standalone novels, projects use a unified, isomorphic 3-level hierarchy layout:
 
+1. **프랜차이즈 레벨 (Franchise Level)**: The project root directory (workspace root). Contains global `settings/` (shared lore, characters, worldview).
+2. **작품 레벨 (Work Level)**: A subdirectory representing a specific novel/series (e.g., `work-a/`). Contains `series-bible.md` and work-specific `settings/` (local characters, items, overrides).
+3. **권 레벨 (Volume Level)**: A subdirectory within the active work (e.g., `work-a/volume-1/`). Contains `outline.md` and `drafts/`.
+
+### 1. Shared Universe Franchise Layout (다작품 구조)
 ```text
-[project-root]/
-├── settings/                # Global settings (canon across all volumes)
+[project-root]/               # === 1단계: 프랜차이즈 레벨 (Franchise) ===
+├── settings/                # 프랜차이즈 공통 설정 (전역 세계관 로어)
 │   ├── magic-system.md
 │   └── characters/
-│       └── protagonist.md
-├── series-bible.md          # Global chronology, summaries, evolution logs, plot threads
-├── volume-1/                # Volume 1 folder
+│       └── legendary-hero.md
+│
+├── [work-a]/                # === 2단계: 작품 레벨 (Work A) ===
+│   ├── series-bible.md      # 작품 A 시리즈 바이블
+│   ├── settings/            # 작품 A 전용 설정 (로컬 캐릭터/아이템)
+│   │
+│   ├── volume-1/            # === 3단계: 권 레벨 (Volume 1 of Work A) ===
+│   │   ├── outline.md       # 1권 아웃라인 및 비트
+│   │   ├── drafts/          # 1권 문단/챕터 드래프트
+│   │   └── volume-1.epub    # 1권 출판 EPUB
+│   └── volume-2/            # 3단계: 권 레벨 (Volume 2 of Work A)
+│
+└── [work-b]/                # === 2단계: 작품 레벨 (Work B) ===
+    ├── series-bible.md
+    └── volume-1/            # === 3단계: 권 레벨 (Volume 1 of Work B) ===
+```
+
+### 2. Standalone Work Layout (단독 작품 구조 - Isomorphic Fallback)
+If `series-bible.md` is located directly at the project root, the project is treated as a single standalone work. The root acts as both the Franchise and Work level, and `volume-N/` directories are placed directly at the root:
+```text
+[project-root]/               # === 1단계 & 2단계 통합: 프랜차이즈 & 작품 레벨 ===
+├── settings/                # 이 작품의 설정
+├── series-bible.md          # 이 작품의 시리즈 바이블
+│
+├── volume-1/                # === 3단계: 권 레벨 (Volume 1) ===
 │   ├── outline.md
-│   ├── drafts/              # Draft chapters
-│   └── volume-1.epub        # Compiled EPUB
-└── volume-2/                # Volume 2 folder (sequel)
-    ├── outline.md
-    ├── drafts/
-    └── volume-2.epub
+│   └── drafts/
+└── volume-2/                # === 3단계: 권 레벨 (Volume 2) ===
 ```
 
 ### Series Bible (`series-bible.md`)
-The `series-bible.md` file tracks chronology and coordinates character evolution logs across volumes. When writing Volume $N$, the router automatically retrieves previous volume summaries and character evolutions to propagate to the sub-agents.
+The `series-bible.md` file tracks chronology, summaries of previous volumes, character evolution logs (e.g. ages, injuries, relationship modifications), and unresolved plot threads for the active work. The `@novelist-loremaster` automatically retrieves these elements to guide sub-agents during drafting.
 
 ## Usage Examples
 
