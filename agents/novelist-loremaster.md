@@ -1,6 +1,6 @@
 ---
 description: "Novelist-Loremaster — Setting archivist: searches files for target setting info and compiles structured documents."
-mode: primary
+mode: sub
 temperature: 0.2
 color: info
 permission:

@@ -1,6 +1,6 @@
 ---
 description: "Novelist-Researcher — Research scientist: analyzes project context, discovers patterns, and writes LaTeX papers."
-mode: primary
+mode: sub
 temperature: 0.3
 color: info
 permission:

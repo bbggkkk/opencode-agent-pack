@@ -1,6 +1,6 @@
 ---
 description: "Novelist-Editor — Fiction editor: analyzes plot, character, prose rhythm, and scene pacing."
-mode: primary
+mode: sub
 temperature: 0.4
 color: info
 permission:

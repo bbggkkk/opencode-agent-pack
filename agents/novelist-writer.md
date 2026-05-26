@@ -1,6 +1,6 @@
 ---
 description: "Novelist-Writer — Fiction writer: creates scenes, dialogue, plot, character emotion, and episode drafts."
-mode: primary
+mode: sub
 temperature: 0.8
 color: accent
 permission:

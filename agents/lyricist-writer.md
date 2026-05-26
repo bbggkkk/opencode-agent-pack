@@ -1,6 +1,6 @@
 ---
 description: "Lyricist-Writer — Lyric writer: creates lyrics for K-pop, ballad, hip-hop, indie, OST, and adjacent styles."
-mode: primary
+mode: sub
 temperature: 0.85
 color: warning
 permission:
