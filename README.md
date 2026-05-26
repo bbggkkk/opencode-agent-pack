@@ -35,7 +35,7 @@ A hierarchical Korean creative agent pack for opencode. The **Novelist** and **L
 The Novelist router runs a structured, paragraph-by-paragraph / beat-by-beat buildup feedback loop. Instead of drafting the entire scene at once, it generates and strictly verifies each segment sequentially using a prefix-constrained architecture:
 
 ```
- ① Loremaster → collect setting & narrative state
+ ① Loremaster → collect setting & narrative state (facts only)
         │
  ② Router → Decompose scene brief into sequential beats/paragraphs
         │
@@ -43,11 +43,14 @@ The Novelist router runs a structured, paragraph-by-paragraph / beat-by-beat bui
  │      │
  │   ④ Writer → write next beat/paragraph based on accumulated prefix & settings
  │      │
- │   ⑤ Otaku → verify next beat draft against accumulated prefix, outline, & settings
+ │   ⑤ Otaku → verify next beat draft (initial lore check) & produce report
+ │      │
+ │   ⑥ Editor → ALWAYS runs. Polishes prose style, 어투, formatting, & resolves Otaku-flagged errors
+ │      │
+ │   ⑦ Otaku (Final Verify) → verifies polished beat
  │     ╱ ╲
- │  PASS  FAIL
- │    │      ├── [Resolved by Hierarchy] ──> ⑥ Editor → fix next beat draft ──> re-verify
- │    │      └── [Unresolvable or User Intervention] ──> ⑦ Halt Loop & Initiate Collaborative Discussion
+ │  PASS  FAIL ──> Loop back to ⑥ Editor to fix and re-verify
+ │    │      (Or if unresolvable, Halt Loop & Initiate Collaborative Discussion)
  │    ▼
  └─── Consolidate beat into accumulated prefix (repeat until all beats done)
         │
@@ -178,7 +181,7 @@ If `series-bible.md` is located directly at the project root, the project is tre
 ### Series Bible & Style Guide (`series-bible.md` & `settings/style-guide.md`)
 The `series-bible.md` file tracks chronology, summaries of previous volumes, character evolution logs (e.g. ages, injuries, relationship modifications), and unresolved plot threads for the active work. 
 
-**Work-Level Style Guide**: The prose style (style, tone, vocabulary preferences, and specific author/person style imitation targets) is formally declared in either the `## Style Guide` section of `series-bible.md` or a local config file at `settings/style-guide.md` at the active Work level. The `@novelist` router and `@novelist-loremaster` automatically inherit and propagate these style settings, ensuring that all volumes and drafts written under this Work maintain a consistent, unified prose style without requiring manual style declarations in every prompt.
+**Work-Level Style Guide**: The prose style (style, tone, vocabulary preferences, and specific author/person style imitation targets) is formally declared in either the `## Style Guide` section of `series-bible.md` or a local config file at `settings/style-guide.md` at the active Work level. The `@novelist` router automatically inherits and propagates these style settings to the Writer and Editor, ensuring that all volumes and drafts written under this Work maintain a consistent, unified prose style without requiring manual style declarations in every prompt.
 
 ## Usage Examples
 
@@ -186,7 +189,7 @@ The `series-bible.md` file tracks chronology, summaries of previous volumes, cha
 
 ```text
 /novelist Write the opening scene of a dark fantasy Chapter 1
-  → ①Loremaster → ②Writer → ③Otaku → (④Editor → ③re-verify if needed) → ⑥Done
+  → ①Loremaster → ②Writer → ③Otaku (Lore Check) → ④Editor (Polishes style/fixes facts) → ⑤Otaku (Final Verify) → ⑥Done
 
 /novelist This scene's pacing feels slow, please fix it
   → @novelist-editor → @novelist-otaku verify

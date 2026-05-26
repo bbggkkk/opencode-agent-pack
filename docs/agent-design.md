@@ -23,7 +23,7 @@ Lyricist (Router)
 The Novelist router runs a **structured feedback loop** for all writing requests, using a sequential paragraph-by-paragraph / beat-by-beat buildup model to guarantee near-perfect narrative consistency and logical transitions:
 
 ```
- ① Loremaster → collect setting & narrative state
+ ① Loremaster → collect setting & narrative state (facts only)
         │
  ② Router → Decompose scene brief into sequential beats/paragraphs
         │
@@ -31,11 +31,14 @@ The Novelist router runs a **structured feedback loop** for all writing requests
  │      │
  │   ④ Writer → writes next beat/paragraph based on accumulated prefix & settings
  │      │
- │   ⑤ Otaku → cross-examines next beat draft against accumulated prefix, outline, & settings
+ │   ⑤ Otaku → verify next beat draft (initial lore check) & produce report
+ │      │
+ │   ⑥ Editor → ALWAYS runs. Polishes prose style, 어투, formatting, & resolves Otaku-flagged errors
+ │      │
+ │   ⑦ Otaku (Final Verify) → verifies polished beat
  │     ╱ ╲
- │  PASS  FAIL
- │    │      ├── [Resolved by Hierarchy] ──> ⑥ Editor → fixes errors using Otaku report & change log ──> re-verify
- │    │      └── [Unresolvable or User Intervention] ──> ⑦ Halt Loop & Initiate Collaborative Discussion
+ │  PASS  FAIL ──> Loop back to ⑥ Editor to fix and re-verify
+ │    │      (Or if unresolvable, Halt Loop & Initiate Collaborative Discussion)
  │    ▼
  └─── Consolidate beat into accumulated prefix (repeat until all beats done)
         │
@@ -101,11 +104,11 @@ The design separates creation from feedback at every level:
 - **Router agents** (`novelist`, `lyricist`) classify and delegate with low temperature (0.3)
 
 The **loremaster → writer → otaku → editor → otaku** feedback loop ensures that every draft is:
-1. Grounded in established setting (loremaster)
+1. Grounded in established setting (loremaster - facts only)
 2. Creatively written (writer)
-3. Rigorously verified (otaku)
-4. Corrected if needed (editor)
-5. Re-verified until clean (otaku)
+3. Verified for factual setting consistency (otaku - initial check)
+4. Polished for style, 어투, formatting, and factual errors (editor - always runs)
+5. Re-verified for absolute lore consistency (otaku - final verify)
 
 This separation helps users run a draft-review-rewrite loop without mixing creative generation and critique in a single role.
 

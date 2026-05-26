@@ -95,7 +95,7 @@ For **writing requests**, execute the step-by-step scene-beat / paragraph buildu
    - Wait for the user's input/discussion to resolve the contradiction before continuing.
 
 ```
- ① Loremaster → collect global settings, series-bible context, & volume narrative state
+ ① Loremaster → collect global settings, series-bible context, & volume narrative state (facts only)
         │
  ② Router → Decompose scene brief into sequential beats/paragraphs for active volume
         │
@@ -103,16 +103,19 @@ For **writing requests**, execute the step-by-step scene-beat / paragraph buildu
  │      │
  │   ④ Writer → write next beat/paragraph based on accumulated prefix, active volume context, & settings
  │      │
- │   ⑤ Otaku → verify next beat draft against accumulated prefix, outline, & settings
+ │   ⑤ Otaku → verify next beat draft (initial lore check) & produce report
+ │      │
+ │   ⑥ Editor → ALWAYS runs. Polishes prose style, tone, 어투, formatting, & resolves Otaku-flagged errors
+ │      │
+ │   ⑦ Otaku (Final Verify) → verifies polished beat
  │     ╱ ╲
- │  PASS  FAIL
- │    │      ├── [Resolved by Hierarchy] ──> ⑥ Editor → fix next beat draft ──> re-verify
- │    │      └── [Unresolvable or User Intervention] ──> ⑦ Halt Loop & Initiate Collaborative Discussion with User
+ │  PASS  FAIL ──> Loop back to ⑥ Editor to fix and re-verify
+ │    │      (Or if unresolvable, Halt Loop & Initiate Collaborative Discussion with User)
  │    ▼
  └─── Consolidate beat into accumulated prefix (repeat until all beats done)
         │
         ▼
-   ⑧ Done & Publish → compile volume drafts into volume EPUB via Publisher
+    ⑧ Done & Publish → compile volume drafts into volume EPUB via Publisher
 ```
 
 ### Step-by-Step
@@ -123,15 +126,13 @@ For **writing requests**, execute the step-by-step scene-beat / paragraph buildu
 Active Work Path: [Work Path (e.g., work-a/ or ./ for standalone)]
 Active Volume Number: [Volume Number]
 Active Volume Path: [Volume Path (e.g., volume-2/)]
-Include alignment constraints from:
-[Creative Profile]
 ```
 
 **② Decompose Scene Brief**
 Router plans the scene outline by decomposing the user request into sequential beats or paragraph outlines for the active volume of the active work.
 
 **③ Loop: For each scene-beat/paragraph**
-Run the drafting and verification loop for the current beat, passing the accumulated verified text from previous beats as prefix context:
+Run the drafting, editing, and verification loop for the current beat, passing the accumulated verified text from previous beats as prefix context:
 
 **④ Write Next Beat**
 ```
@@ -149,11 +150,9 @@ Narrative State, Series Bible context, & Setting documents:
 [loremaster output]
 ```
 
-**⑤ Verify Next Beat**
+**⑤ Verify Next Beat (Factual Check)**
 ```
-@novelist-otaku: Verify the next beat draft against the accumulated verified text, scene outline, Creative Profile, Active Hierarchy Context, and lore settings/Series Bible constraints.
-Creative Profile:
-[Creative Profile]
+@novelist-otaku: Check the next beat draft for lore and setting consistency against the accumulated verified text, scene outline, and lore settings/Series Bible constraints. Do not perform style, 어투, or formatting checks. Output a Verification Report.
 Active Work Path: [Work Path]
 Active Volume Number: [Volume Number]
 Active Volume Path: [Volume Path]
@@ -161,15 +160,15 @@ Scene Outline:
 [...]
 Accumulated verified text:
 [previously verified paragraphs]
-Next beat draft to verify:
+Next beat draft to check:
 [writer output]
 Setting documents & Series Bible context:
 [...]
 ```
 
-**⑥ Fix Next Beat** (only when Otaku returns FAIL)
+**⑥ Polish and Edit Beat (Always Runs)**
 ```
-@novelist-editor: Fix the next beat draft based on the Otaku report below. Make sure to adhere to the accumulated verified text, Active Hierarchy Context, and settings. Resolve any contradictions according to the Priority Hierarchy.
+@novelist-editor: Review the draft, polish the prose to enforce the Writing & Creative Profile (style guide, 어투, tone), apply standard formatting, and resolve any factual setting inconsistencies flagged by the Otaku report. Output the complete revised Next Beat Draft and a Change Log.
 Creative Profile:
 [Creative Profile]
 Active Work Path: [Work Path]
@@ -179,13 +178,29 @@ Accumulated verified text:
 [previously verified paragraphs]
 Next beat draft:
 [writer output]
-Otaku report:
-[...]
+Otaku verification report:
+[otaku output]
 Previous changes made to this beat (Change Log):
 [...]
 ```
 
-**⑦ Halt Loop & Initiate Collaborative Discussion** → If an unresolvable contradiction is detected or the user intervenes, halt the loop, present the Priority 1, 2, 3 details, and suggest how to align them to begin a discussion.
+**⑦ Otaku Final Verify**
+```
+@novelist-otaku: Perform a final strict verification on the Editor's polished next beat draft. Verify it against the accumulated verified text, scene outline, and settings.
+Active Work Path: [Work Path]
+Active Volume Number: [Volume Number]
+Active Volume Path: [Volume Path]
+Scene Outline:
+[...]
+Accumulated verified text:
+[previously verified paragraphs]
+Editor polished next beat draft to verify:
+[editor output]
+Setting documents & Series Bible context:
+[...]
+```
+
+If PASS, consolidate and commit. If FAIL, return verification report to Editor to fix.
 
 **⑧ Done & Publish** — once all beats/paragraphs are verified and accumulated, invoke `@novelist-publisher` to compile the drafts in `[Active Work Path][Active Volume Path]` into an EPUB book (using standard `zip` packaging with Web Novel CSS style). Stage and commit all changes, then deliver both the final text and the EPUB to the user.
 

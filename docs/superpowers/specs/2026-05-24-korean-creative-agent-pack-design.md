@@ -107,7 +107,7 @@ permission:
 
 1. **Step-by-Step Paragraph/Scene-Beat Loop**:
    - The Novelist system builds drafts sequentially, beat-by-beat or paragraph-by-paragraph.
-   - For each segment, it runs the `Writer -> Otaku -> Editor` cycle. Once verified, the segment is committed to the **Accumulated Prefix Text** (absolute canon prefix context) and cannot be rewritten or modified by subsequent iterations.
+   - For each segment, it runs the `Writer -> Otaku (Lore Check) -> Editor (Always runs to polish style/formatting/어투 & fix facts) -> Otaku (Final Verify)` cycle. Once verified, the segment is committed to the **Accumulated Prefix Text** (absolute canon prefix context) and cannot be rewritten or modified by subsequent iterations.
 2. **Loop Safety & Collaborative Discussion**:
    - There are **no maximum loop limits or safety bypasses** that auto-approve failed drafts. Verification is 100% strict at the segment level.
    - To resolve deadlocks or contradictions:
@@ -126,7 +126,7 @@ permission:
    - The system organizes creative projects into an isomorphic 3-level hierarchy: Franchise (shared settings at root), Work (subdirectory with `series-bible.md` and work local `settings/`), and Volume (subdirectory like `volume-N/` inside the work).
    - If `series-bible.md` is at the project root, the project falls back to Standalone mode, treating the root as both Franchise and Work levels.
    - The `series-bible.md` ledger (at Work level) tracks chronology, summaries of previous volumes, character evolution states, and active plot threads for that specific work.
-   - **Work-Level Style Guide**: The prose style (style, tone, vocabulary preferences, and specific author/person style imitation targets) is formally declared in either the `## Style Guide` section of `series-bible.md` or a local config file at `settings/style-guide.md` at the active Work level. The `@novelist` router and `@novelist-loremaster` automatically inherit and propagate these style settings, ensuring that all volumes and drafts written under this Work maintain a consistent, unified prose style.
+   - **Work-Level Style Guide**: The prose style (style, tone, vocabulary preferences, and specific author/person style imitation targets) is formally declared in either the `## Style Guide` section of `series-bible.md` or a local config file at `settings/style-guide.md` at the active Work level. The `@novelist` router automatically inherits and propagates these style settings to the Writer and Editor, ensuring that all volumes and drafts written under this Work maintain a consistent, unified prose style.
    - For Volume N (where N > 1), `@novelist-loremaster` retrieves previous volume summaries from the Work-level Series Bible to construct the backstory context.
    - Character attributes (ages, injuries) must align with the active volume's Evolution Log in the Work-level `series-bible.md`.
    - Local narrative states (previous chapter outlines, character conditions) are loaded relative to the active volume directory (`[Active Work Path][Active Volume Path]`).
