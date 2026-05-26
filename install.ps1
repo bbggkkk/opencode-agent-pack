@@ -1,9 +1,9 @@
 # Korean Creative Agents for opencode - PowerShell Installation Script
-# https://github.com/bbggkkk/opencode-agent-pack
+# https://github.com/bbggkkk/opencode-novelist
 
 $ErrorActionPreference = "Stop"
 
-$REPO_URL = "https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master"
+$REPO_URL = "https://raw.githubusercontent.com/bbggkkk/opencode-novelist/master"
 $SCRIPT_DIR = if ($PSScriptRoot) { $PSScriptRoot } else { $PWD.Path }
 
 Write-Host "==================================================" -ForegroundColor Cyan
@@ -16,7 +16,7 @@ $PROJECT_TARGET = Join-Path $SCRIPT_DIR ".opencode/agents"
 
 # Determine running mode
 $RunningFromRepo = $false
-if ($SCRIPT_DIR -like "*opencode-agent-pack*" -and (Test-Path (Join-Path $SCRIPT_DIR "agents"))) {
+if ($SCRIPT_DIR -like "*opencode-novelist*" -and (Test-Path (Join-Path $SCRIPT_DIR "agents"))) {
     $RunningFromRepo = $true
 }
 
@@ -56,8 +56,7 @@ Write-Host "Installing agents..."
 
 $Agents = @(
     "novelist", "novelist-writer", "novelist-editor", "novelist-researcher",
-    "novelist-loremaster", "novelist-otaku", "novelist-publisher",
-    "lyricist", "lyricist-writer", "lyricist-editor"
+    "novelist-loremaster", "novelist-otaku", "novelist-publisher"
 )
 
 if ($RunningFromRepo) {
@@ -97,9 +96,4 @@ Write-Host "   /novelist-researcher    - Research / LaTeX papers"
 Write-Host "   /novelist-loremaster    - Setting archivist"
 Write-Host "   /novelist-otaku         - Setting consistency verifier"
 Write-Host "   /novelist-publisher     - EPUB book compiler"
-Write-Host ""
-Write-Host "  [Lyricist System]"
-Write-Host "   /lyricist               - Router (writing/editing dispatcher)"
-Write-Host "   /lyricist-writer        - Lyric writer"
-Write-Host "   /lyricist-editor        - Lyric editor"
 Write-Host "=================================================="

@@ -2,11 +2,11 @@
 
 ## Goal
 
-Create a GitHub-distributable opencode agent pack for Korean-first creative writing, with English support when explicitly requested. The pack provides separate writer and editor roles for fiction and lyrics.
+Create a GitHub-distributable opencode agent pack for Korean-first creative writing, with English support when explicitly requested. The pack provides separate writer and editor roles for fiction.
 
 ## Scope
 
-The repository will contain four opencode agent definitions, documentation, and usage examples. It will not include an npm package, installer script, plugin, or model-specific runtime integration in the first version.
+The repository will contain three opencode agent definitions, documentation, and usage examples. It will not include an npm package, installer script, plugin, or model-specific runtime integration in the first version.
 
 ## Repository Structure
 
@@ -17,11 +17,8 @@ novelist/
   agents/
     novelist.md
     novel-editor.md
-    lyricist.md
-    lyric-editor.md
   examples/
     novel-brief.md
-    lyric-brief.md
     revision-request.md
   docs/
     agent-design.md
@@ -41,20 +38,14 @@ Fiction editor and feedback agent. Reviews plot logic, character consistency, pr
 
 EPUB book compiler. Formats verified drafts into semantic XHTML chapters, generates required XML metadata manifests, and packages them into valid EPUB files using the system `zip` command.
 
-### lyricist
 
-Korean-first lyric writer. Produces lyrics for K-pop, ballad, hip-hop, indie, OST, and adjacent genres. Prioritizes Korean pronunciation, hook strength, repetition, rhyme, syllable feel, imagery, and singability. Supports English lyrics when requested.
-
-### lyric-editor
-
-Lyric editor and feedback agent. Reviews hook clarity, verse/pre-chorus/chorus structure, rhyme, flow, pronunciation, message clarity, cliche usage, and fit to genre or melody constraints.
 
 ## Language, Culture & Creative Profiling Policy
 
 Agents write in the language and style explicitly requested by the user. 
 
-1. **Upfront Information Gathering**: If key parameters such as Style/Tone, Mood/Atmosphere, Language, or Cultural Background are missing, ambiguous, or unclear from the user's initial prompt, the router agents (`/novelist`, `/lyricist`) will ask the user *once* at the beginning to gather and align these parameters.
-2. **Unified Profile Enforcement**: These parameters are compiled into a unified **Writing & Creative Profile** (or **Lyric Profile**). The routers propagate this profile to all sub-agents (Writer, Editor, Otaku, Researcher, Loremaster). Every stage of the workflow—including initial drafting, review, editing/revising, and setting verification—strictly adheres to this profile to maintain creative consistency.
+1. **Upfront Information Gathering**: If key parameters such as Style/Tone, Mood/Atmosphere, Language, or Cultural Background are missing, ambiguous, or unclear from the user's initial prompt, the router agent (`/novelist`) will ask the user *once* at the beginning to gather and align these parameters.
+2. **Unified Profile Enforcement**: These parameters are compiled into a unified **Writing & Creative Profile**. The router propagates this profile to all sub-agents (Writer, Editor, Otaku, Researcher, Loremaster). Every stage of the workflow—including initial drafting, review, editing/revising, and setting verification—strictly adheres to this profile to maintain creative consistency.
 3. **Language Defaults**: If unspecified, the language defaults to Korean.
 4. **Cultural Context Inference**: The cultural context is inferred based on the target language and its corresponding country/countries. If ambiguous, the agents prompt the user to input it.
 5. **Web Novel Layout Format**: By default, agents write drafts in standard web novel format: paragraphs are separated strictly by a standard blank line (double newlines `\n\n`), without any hardcoded space indentation characters at the beginning. Dialogues are wrapped in double quotes `"..."` on a new line. All visual formatting (margins, indents, margins-bottom) is handled by the EPUB's CSS stylesheet during compilation.
@@ -146,5 +137,5 @@ Verification will check that:
 - No custom opencode plugin.
 - No package manager distribution.
 - No automatic installer.
-- No scraping or copying of copyrighted lyrics or novels.
-- No claim that outputs match a specific real author or musician.
+- No scraping or copying of copyrighted novels.
+- No claim that outputs match a specific real author.

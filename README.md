@@ -1,6 +1,6 @@
 # Korean Creative Agents for opencode
 
-A hierarchical Korean creative agent pack for opencode. The **Novelist** and **Lyricist** routers analyze requests and delegate to specialized sub-agents through a structured feedback loop.
+A hierarchical Korean creative agent pack for opencode. The **Novelist** router analyzes requests and delegates to specialized sub-agents through a structured feedback loop.
 
 ## Agents
 
@@ -15,14 +15,6 @@ A hierarchical Korean creative agent pack for opencode. The **Novelist** and **L
 | `/novelist-loremaster` | Setting archivist: searches files for setting info, compiles structured documents |
 | `/novelist-otaku` | Setting verifier: cross-examines drafts against setting for consistency |
 | `/novelist-publisher` | EPUB book compiler: compiles verified drafts into standard CSS-styled EPUB books using zip commands |
-
-### Lyricist System
-
-| Agent | Role |
-|-------|------|
-| `/lyricist` | **Router** — analyzes lyric writing/editing requests |
-| `/lyricist-writer` | Lyric writing: K-pop, ballad, hip-hop, indie, OST, and adjacent styles |
-| `/lyricist-editor` | Lyric editing: hook clarity, rhyme, flow, pronunciation, structure |
 
 ### Skill (installed alongside agents)
 
@@ -74,15 +66,15 @@ The Novelist router runs a structured, paragraph-by-paragraph / beat-by-beat bui
 
 * **Linux / macOS (Bash)**:
   ```bash
-  git clone https://github.com/bbggkkk/opencode-agent-pack.git
-  cd opencode-agent-pack
+  git clone https://github.com/bbggkkk/opencode-novelist.git
+  cd opencode-novelist
   ./install.sh
   ```
 
 * **Windows (PowerShell)**:
   ```powershell
-  git clone https://github.com/bbggkkk/opencode-agent-pack.git
-  cd opencode-agent-pack
+  git clone https://github.com/bbggkkk/opencode-novelist.git
+  cd opencode-novelist
   .\install.ps1
   ```
 
@@ -96,24 +88,24 @@ Prompts for install target:
 
 * **Project-local install** (`.opencode/agents/`):
   ```bash
-  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 1
+  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-novelist/master/install.sh | sh -s -- 1
   ```
 
 * **Global install** (`~/.config/opencode/agents/`):
   ```bash
-  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 2
+  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-novelist/master/install.sh | sh -s -- 2
   ```
 
 #### Windows (PowerShell)
 
 * **Project-local install** (`.opencode/agents/`):
   ```powershell
-  & ([scriptblock]::Create((irm https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.ps1))) 1
+  & ([scriptblock]::Create((irm https://raw.githubusercontent.com/bbggkkk/opencode-novelist/master/install.ps1))) 1
   ```
 
 * **Global install** (`~/.config/opencode/agents/`):
   ```powershell
-  & ([scriptblock]::Create((irm https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.ps1))) 2
+  & ([scriptblock]::Create((irm https://raw.githubusercontent.com/bbggkkk/opencode-novelist/master/install.ps1))) 2
   ```
 
 ### Option 3: Manual Copy
@@ -207,22 +199,12 @@ The `series-bible.md` file tracks chronology, summaries of previous volumes, cha
 /novelist-otaku Verify this draft against the established setting.
 ```
 
-### Lyricist Router
-
-```text
-/lyricist Write a sad ballad chorus about breakup regret
-  → @lyricist-writer
-
-/lyricist The hook in this lyric feels weak, polish it
-  → @lyricist-editor
-```
-
 ## Language, Culture & Creative Profiling Policy
 
 Agents write in the language and style explicitly requested by the user. 
 
-1. **Upfront Information Gathering**: If key parameters such as Style/Tone, Mood/Atmosphere, Language, or Cultural Background are missing, ambiguous, or unclear from the user's initial prompt, the router agents (`/novelist`, `/lyricist`) will ask the user *once* at the beginning to gather and align these parameters.
-2. **Unified Profile Enforcement**: These parameters are compiled into a unified **Writing & Creative Profile** (or **Lyric Profile**). The routers propagate this profile to all sub-agents (Writer, Editor, Otaku, Researcher, Loremaster). Every stage of the workflow—including initial drafting, review, editing/revising, and setting verification—strictly adheres to this profile to maintain creative consistency.
+1. **Upfront Information Gathering**: If key parameters such as Style/Tone, Mood/Atmosphere, Language, or Cultural Background are missing, ambiguous, or unclear from the user's initial prompt, the router agent (`/novelist`) will ask the user *once* at the beginning to gather and align these parameters.
+2. **Unified Profile Enforcement**: These parameters are compiled into a unified **Writing & Creative Profile**. The router propagates this profile to all sub-agents (Writer, Editor, Otaku, Researcher, Loremaster). Every stage of the workflow—including initial drafting, review, editing/revising, and setting verification—strictly adheres to this profile to maintain creative consistency.
 3. **Language Defaults**: If unspecified, the language defaults to Korean.
 4. **Cultural Context Inference**: The cultural context is inferred based on the target language and its corresponding country/countries. If ambiguous, the agents prompt the user to input it.
 5. **Korean-First Creative Writing**: Korean is the default context. When writing in Korean, agents write with Korean sentence rhythm, natural dialogue, genre conventions, emotional continuity, and cliche avoidance in mind, representing a Korean cultural background.
@@ -240,18 +222,13 @@ Good requests:
 ```text
 Write the opening of a dark urban fantasy Chapter 1 in Haruki Murakami's style.
 Write the next paragraph using a concise, hardboiled prose style.
-Write a 90s ballad-style breakup chorus.
 ```
-
-Avoid requests like:
-- Direct copy-pasting and slightly rewriting copyrighted lyrics.
 
 ## Examples
 
 See:
 
 - `examples/novel-brief.md`
-- `examples/lyric-brief.md`
 - `examples/revision-request.md`
 
 ## License

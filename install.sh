@@ -1,10 +1,10 @@
 #!/bin/sh
 # Korean Creative Agents for opencode - Interactive Installation Script
-# https://github.com/bbggkkk/opencode-agent-pack
+# https://github.com/bbggkkk/opencode-novelist
 
 set -e
 
-REPO_URL="https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master"
+REPO_URL="https://raw.githubusercontent.com/bbggkkk/opencode-novelist/master"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "=================================================="
@@ -15,7 +15,7 @@ echo ""
 # Detect if running from the repo or via curl
 RUNNING_FROM_REPO=false
 case "$SCRIPT_DIR" in
-    *"opencode-agent-pack"*)
+    *"opencode-novelist"*)
         RUNNING_FROM_REPO=true
         ;;
 esac
@@ -93,7 +93,7 @@ if [ "$RUNNING_FROM_REPO" = "true" ] && [ -d "$SCRIPT_DIR/agents" ]; then
     cp -r "$SCRIPT_DIR/agents"/* "$TARGET/"
 else
     # Download from GitHub
-    for agent in novelist novelist-writer novelist-editor novelist-researcher novelist-loremaster novelist-otaku novelist-publisher lyricist lyricist-writer lyricist-editor; do
+    for agent in novelist novelist-writer novelist-editor novelist-researcher novelist-loremaster novelist-otaku novelist-publisher; do
         curl -sSL "$REPO_URL/agents/${agent}.md" -o "$TARGET/${agent}.md"
     done
     # Download skill
@@ -118,9 +118,4 @@ echo "   /novelist-researcher    - Research / LaTeX papers"
 echo "   /novelist-loremaster    - Setting archivist"
 echo "   /novelist-otaku         - Setting consistency verifier"
 echo "   /novelist-publisher     - EPUB book compiler"
-echo ""
-echo "  [Lyricist System]"
-echo "   /lyricist               - Router (writing/editing dispatcher)"
-echo "   /lyricist-writer        - Lyric writer"
-echo "   /lyricist-editor        - Lyric editor"
 echo "=================================================="
