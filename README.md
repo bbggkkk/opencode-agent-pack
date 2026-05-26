@@ -14,6 +14,7 @@ A hierarchical Korean creative agent pack for opencode. The **Novelist** and **L
 | `/novelist-researcher` | Research & LaTeX paper writing: experiment analysis, academic writing |
 | `/novelist-loremaster` | Setting archivist: searches files for setting info, compiles structured documents |
 | `/novelist-otaku` | Setting verifier: cross-examines drafts against setting for consistency |
+| `/novelist-publisher` | EPUB book compiler: compiles verified drafts into standard CSS-styled EPUB books using zip commands |
 
 ### Lyricist System
 
@@ -51,7 +52,7 @@ The Novelist router runs a structured, paragraph-by-paragraph / beat-by-beat bui
  └─── Consolidate beat into accumulated prefix (repeat until all beats done)
         │
         ▼
-   ⑧ Done → deliver final consolidated result to user
+    ⑧ Done & Publish → compile final consolidated draft into EPUB using zip
 ```
 
 ### Loop Safety & Collaborative Discussion

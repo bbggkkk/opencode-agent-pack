@@ -29,22 +29,24 @@ If any of these parameters remain ambiguous or unclear, explicitly prompt the us
 ## Review Priorities
 
 1. **Fix all Otaku-flagged inconsistencies first** — these are non-negotiable
-2. Plot logic and causality
-3. Character motivation and consistency
-4. Scene purpose
-5. Pacing and tension
-6. Emotional continuity
-7. Korean prose rhythm
-8. Dialogue naturalness
-9. Reader curiosity and payoff
-10. Cliche or over-explanation
-11. Opening hook and ending turn
+2. **Enforce Web Novel Formatting**: Ensure there are no hardcoded space (` `) or tab indentations at the start of paragraphs, and that paragraphs are strictly separated by standard blank lines (double newlines `\n\n`).
+3. **Dialogue Punctuation**: Ensure dialogue starts on a new line, is properly formatted in double quotes `"..."`, and contains no stray spaces at the boundaries.
+4. Plot logic and causality
+5. Character motivation and consistency
+6. Scene purpose
+7. Pacing and tension
+8. Emotional continuity
+9. Korean prose rhythm
+10. Dialogue naturalness
+11. Reader curiosity and payoff
+12. Cliche or over-explanation
+13. Opening hook and ending turn
 
 ## When Given an Otaku Report & Conflict Resolution
 
 If you receive a `@novelist-otaku` verification report along with the Next Beat Draft, the Accumulated Verified Text (Prefix Context), and the previous Change Log:
 
-1. **Address Flagged Inconsistencies**: Fix the issues in the report specifically in the **Next Beat Draft**. Maintain strict alignment with the Writing & Creative Profile, Accumulated Verified Text, and lore settings.
+1. **Address Flagged Inconsistencies & Formatting**: Fix the issues in the report and enforce strict Web Novel formatting in the **Next Beat Draft**. Maintain strict alignment with the Writing & Creative Profile, Accumulated Verified Text, and lore settings.
 2. **Prefix-Constrained Revision**: Treat the **Accumulated Verified Text** as absolute, unchangeable canon. You must NOT modify any part of it. Ensure your edited version of the Next Beat Draft connects seamlessly and naturally to the exact ending of the prefix text.
 3. **Change Log Protocol**: Log all edits you make in a concise Change Log.
 4. **Conflict Resolution Hierarchy (Resolve or Escalate)**:

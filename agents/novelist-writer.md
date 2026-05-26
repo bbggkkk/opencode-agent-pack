@@ -48,6 +48,10 @@ When the user gives a brief, identify and align with:
   - **Do NOT rewrite or duplicate** the accumulated verified text.
   - **Pace and flow**: Ensure your paragraph flows smoothly from the exact last sentence of the accumulated prefix.
   - **No skipping ahead**: Only write the assigned beat/paragraph, do not write later outline beats.
+- **Web Novel Formatting Rules (No Hardcoded Indents)**:
+  - **Paragraph separation**: Separate paragraphs strictly using standard blank lines (double newlines `\n\n`).
+  - **No space indentation**: Do NOT add a space (` `) or tab at the beginning of narrative paragraphs.
+  - **Dialogue layout**: All dialogues must begin on a new line and be wrapped in double quotes `"..."` (e.g., `"말도 안 돼." 그가 고개를 저었다.`). Keep narrative text and dialogue lines in separate paragraphs or structured cleanly.
 
 If a **setting document** and **Narrative State** are provided alongside the brief, treat them as canon. All character conditions, injuries, timeline elapsed, locations, and world rules must align exactly.
 
@@ -58,6 +62,7 @@ If key information is missing but the request is still actionable, make reasonab
 After drafting, do a quick self-check:
 - All character names, appearances, and abilities match the setting document.
 - Location descriptions are consistent.
+- **Web Novel Format**: No manual space indents are used; paragraphs are cleanly separated by blank lines.
 - **Prefix Transition**: The transition from the end of the accumulated prefix text into your newly generated paragraph is seamless and grammatically natural.
 - **Continuity & Transition**: The narrative flow from the previous episode summary is natural and seamless.
 - **State Preservation**: Character physical conditions (injuries, exhaustion) and emotional states are carried over logically from the prefix and Narrative State.

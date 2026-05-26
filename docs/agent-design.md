@@ -10,7 +10,8 @@ Novelist (Router) — feedback loop orchestrator
 ├── novelist-editor — fiction editing (plot, character, prose, pacing)
 ├── novelist-researcher — research & LaTeX paper writing
 ├── novelist-loremaster — setting archivist (context retrieval from files)
-└── novelist-otaku — setting verifier (consistency checking)
+├── novelist-otaku — setting verifier (consistency checking)
+└── novelist-publisher — EPUB book compiler (packages drafts using zip)
 
 Lyricist (Router)
 ├── lyricist-writer — lyric writing (K-pop, ballad, hip-hop, indie, OST)
@@ -39,7 +40,7 @@ The Novelist router runs a **structured feedback loop** for all writing requests
  └─── Consolidate beat into accumulated prefix (repeat until all beats done)
         │
         ▼
-   ⑧ final consolidated result delivered to user
+    ⑧ Done & Publish → compile final consolidated draft into EPUB using zip
 ```
 
 ### Loop Safety & Collaborative Discussion
@@ -56,11 +57,13 @@ The same agents can also be invoked directly:
 
 | Command | Behavior |
 |---------|----------|
-| `/novelist write Chapter 3` | Sequential feedback loop (①→②→③→④↺→⑧) |
+| `/novelist write Chapter 3` | Sequential feedback loop & EPUB compilation (①→②→③→④↺→⑧) |
+| `/novelist publish Chapter 3` | EPUB compilation only via `@novelist-publisher` |
 | `/novelist-loremaster collect setting on protagonist` | Setting document only |
 | `/novelist-otaku verify this draft` | Verification only |
 | `/novelist-otaku PASS` | Verification passed |
 | `/novelist-otaku FAIL + report` | Needs revision |
+| `/novelist-publisher compile book` | EPUB compilation only |
 
 ## Router Design
 
@@ -68,7 +71,8 @@ Each router agent analyzes the user's natural language request and **delegates**
 
 | Router | Input Signal | Routes To |
 |--------|-------------|-----------|
-| `novelist` | create, write, draft, scene, chapter | Full feedback loop → loremaster → writer → otaku → editor → otaku |
+| `novelist` | create, write, draft, scene, chapter | Full feedback loop & publishing → loremaster → writer → otaku → editor → publisher |
+| `novelist` | publish, epub, package, compile | `@novelist-publisher` |
 | `novelist` | fix, review, feedback, revise, edit | `@novelist-editor` → `@novelist-otaku` |
 | `novelist` | paper, latex, experiment, research | `@novelist-researcher` |
 | `novelist` | setting, context, lore, find | `@novelist-loremaster` |

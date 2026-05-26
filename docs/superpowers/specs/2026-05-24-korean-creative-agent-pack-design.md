@@ -37,6 +37,10 @@ Korean-first fiction writer. Produces scenes, dialogue, narration, character emo
 
 Fiction editor and feedback agent. Reviews plot logic, character consistency, prose rhythm, pacing, scene purpose, emotional continuity, and reader engagement. Provides concrete revision notes and optional rewritten samples.
 
+### novel-publisher
+
+EPUB book compiler. Formats verified drafts into semantic XHTML chapters, generates required XML metadata manifests, and packages them into valid EPUB files using the system `zip` command.
+
 ### lyricist
 
 Korean-first lyric writer. Produces lyrics for K-pop, ballad, hip-hop, indie, OST, and adjacent genres. Prioritizes Korean pronunciation, hook strength, repetition, rhyme, syllable feel, imagery, and singability. Supports English lyrics when requested.
@@ -53,7 +57,8 @@ Agents write in the language and style explicitly requested by the user.
 2. **Unified Profile Enforcement**: These parameters are compiled into a unified **Writing & Creative Profile** (or **Lyric Profile**). The routers propagate this profile to all sub-agents (Writer, Editor, Otaku, Researcher, Loremaster). Every stage of the workflow—including initial drafting, review, editing/revising, and setting verification—strictly adheres to this profile to maintain creative consistency.
 3. **Language Defaults**: If unspecified, the language defaults to Korean.
 4. **Cultural Context Inference**: The cultural context is inferred based on the target language and its corresponding country/countries. If ambiguous, the agents prompt the user to input it.
-5. **Korean-First Creative Writing**: Korean is the default context. When writing in Korean, outputs should prioritize natural sentence rhythm, believable dialogue, genre conventions, emotional continuity, and avoidance of stale cliches, representing a Korean cultural background.
+5. **Web Novel Layout Format**: By default, agents write drafts in standard web novel format: paragraphs are separated strictly by a standard blank line (double newlines `\n\n`), without any hardcoded space indentation characters at the beginning. Dialogues are wrapped in double quotes `"..."` on a new line. All visual formatting (margins, indents, margins-bottom) is handled by the EPUB's CSS stylesheet during compilation.
+6. **Korean-First Creative Writing**: Korean is the default context. When writing in Korean, outputs should prioritize natural sentence rhythm, believable dialogue, genre conventions, emotional continuity, and avoidance of stale cliches, representing a Korean cultural background.
 
 ## Copyright And Style Policy
 
@@ -112,8 +117,12 @@ permission:
        - **Priority 3: Recent Narrative State (최근 서사 상태/이전 장 내용)** — Overrides transient user prompts.
        - **Priority 4: User Brief / Transient Prompt (사용자 지시어)** — Lowest priority. Cannot violate established settings.
      - **Collaborative Discussion Protocol**: If a conflict is unresolvable (e.g., direct settings contradiction) or the user intervenes to override settings, the loop **halts**. The agent initiates a structured discussion in the chat: presenting the related Priority 1, 2, and 3 settings details, explaining the contradiction, and proposing how to align the files (e.g., editing the character profile vs general lore) for the user's decision.
-3. **Change Log**: The Editor maintains a Change Log to prevent circular or conflicting modifications.
-4. **Narrative Continuity**: Loremaster retrieves the latest Narrative State (previous episode summary, character states, timeline details) to ensure natural flow and logical transitions.
+3. **EPUB Publishing**:
+   - The verified draft is passed to `@novelist-publisher` which converts Markdown paragraphs to HTML `<p>` tags.
+   - Decoupled styling is enforced: indentations, padding, and line spacing are written inside the EPUB's `stylesheet.css`, allowing CSS to drive rendering.
+   - Packaging is completed via standard system `zip` shell commands, keeping the pack lightweight and free of Python runtime dependencies.
+4. **Change Log**: The Editor maintains a Change Log to prevent circular or conflicting modifications.
+5. **Narrative Continuity**: Loremaster retrieves the latest Narrative State (previous episode summary, character states, timeline details) to ensure natural flow and logical transitions.
 
 ## Testing And Verification
 
