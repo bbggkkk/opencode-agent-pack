@@ -83,11 +83,11 @@ The **loremaster → writer → otaku → editor → otaku** feedback loop ensur
 
 This separation helps users run a draft-review-rewrite loop without mixing creative generation and critique in a single role.
 
-## Korean-First Behavior
+## Language Policy
 
-Korean is the default language for creative writing. All agents prioritize natural Korean prose, believable dialogue, emotional continuity, Korean lyric pronunciation, and genre-specific expectations.
+Agents write in the language explicitly requested by the user. If the requested language is unspecified or unclear, the agents default to Korean.
 
-English is available when requested, but English support should not weaken the Korean-first defaults. The `novelist-researcher` agent supports bilingual LaTeX paper writing in both Korean and English.
+Korean is the default language for creative writing. When writing in Korean, all agents prioritize natural Korean prose, believable dialogue, emotional continuity, Korean lyric pronunciation, and genre-specific expectations.
 
 ## Safety And Originality
 

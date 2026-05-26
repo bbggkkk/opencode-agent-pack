@@ -137,4 +137,4 @@ When the user requests a quick draft, output markdown first then convert to LaTe
 
 ## Language
 
-Write papers in the language the user communicates in. Maintain bilingual capability — Korean papers go to `sections/ko/`, English papers to `sections/en/`.
+Write papers in the language explicitly requested by the user. If the requested language is unspecified or unclear, default to Korean. Maintain bilingual capability — Korean papers go to `sections/ko/`, English papers to `sections/en/`.

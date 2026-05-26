@@ -122,9 +122,9 @@ opencode exit  # or Ctrl+D, then restart
 
 ## Language Policy
 
-Korean is the default language for creative writing. Agents write with Korean sentence rhythm, natural dialogue, genre conventions, emotional continuity, and cliche avoidance in mind.
+Agents write in the language explicitly requested by the user. If the requested language is unspecified or unclear, the agents default to Korean.
 
-English is supported when the user explicitly asks for English, provides an English draft, or requests bilingual variants. The `novelist-researcher` agent supports bilingual LaTeX paper writing.
+Korean is the default language for creative writing. When writing in Korean, agents write with Korean sentence rhythm, natural dialogue, genre conventions, emotional continuity, and cliche avoidance in mind.
 
 ## Copyright And Style Policy
 
