@@ -69,17 +69,27 @@ The Novelist router runs a structured, paragraph-by-paragraph / beat-by-beat bui
 
 ### Option 1: Clone & Interactive (Recommended)
 
-```bash
-git clone https://github.com/bbggkkk/opencode-agent-pack.git
-cd opencode-agent-pack
-./install.sh
-```
+* **Linux / macOS (Bash)**:
+  ```bash
+  git clone https://github.com/bbggkkk/opencode-agent-pack.git
+  cd opencode-agent-pack
+  ./install.sh
+  ```
+
+* **Windows (PowerShell)**:
+  ```powershell
+  git clone https://github.com/bbggkkk/opencode-agent-pack.git
+  cd opencode-agent-pack
+  .\install.ps1
+  ```
 
 Prompts for install target:
 - **`1`** — Project-local install (`.opencode/agents/`)
 - **`2`** — Global install (`~/.config/opencode/agents/`)
 
 ### Option 2: One-liner (pass argument)
+
+#### Linux / macOS (Bash)
 
 * **Project-local install** (`.opencode/agents/`):
   ```bash
@@ -89,6 +99,18 @@ Prompts for install target:
 * **Global install** (`~/.config/opencode/agents/`):
   ```bash
   curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 2
+  ```
+
+#### Windows (PowerShell)
+
+* **Project-local install** (`.opencode/agents/`):
+  ```powershell
+  & ([scriptblock]::Create((irm https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.ps1))) 1
+  ```
+
+* **Global install** (`~/.config/opencode/agents/`):
+  ```powershell
+  & ([scriptblock]::Create((irm https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.ps1))) 2
   ```
 
 ### Option 3: Manual Copy
