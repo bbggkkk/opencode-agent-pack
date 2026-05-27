@@ -90,7 +90,7 @@ Prompts for install target:
 - **`1`** — Project-local install (`.opencode/agents/`)
 - **`2`** — Global install (`~/.config/opencode/agents/`)
 
-Templates are installed outside agent discovery, under `.opencode/novelist/templates/` for project installs or `~/.config/opencode/novelist/templates/` for global installs. Do not copy templates into an `agents/` directory; opencode may expose Markdown templates as callable agents there.
+Templates and support skills are installed outside agent discovery. Project installs use `.opencode/novelist/templates/` and `.opencode/novelist/skills/`; global installs use `~/.config/opencode/novelist/templates/` and `~/.config/opencode/novelist/skills/`. Do not copy templates or skills into an `agents/` directory; opencode may expose Markdown support files as callable agents there.
 
 ### Option 2: One-liner (pass argument)
 
@@ -124,14 +124,18 @@ Templates are installed outside agent discovery, under `.opencode/novelist/templ
 # Global install
 mkdir -p ~/.config/opencode/agents
 mkdir -p ~/.config/opencode/novelist/templates
+mkdir -p ~/.config/opencode/novelist/skills
 cp -r agents/* ~/.config/opencode/agents/
 cp -r templates/* ~/.config/opencode/novelist/templates/
+cp -r skills/* ~/.config/opencode/novelist/skills/
 
 # Per-project install
 mkdir -p .opencode/agents
 mkdir -p .opencode/novelist/templates
+mkdir -p .opencode/novelist/skills
 cp -r agents/* .opencode/agents/
 cp -r templates/* .opencode/novelist/templates/
+cp -r skills/* .opencode/novelist/skills/
 ```
 
 Restart opencode for changes to take effect:

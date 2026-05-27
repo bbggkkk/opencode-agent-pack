@@ -29,8 +29,10 @@ fi
 # Detect available installation targets
 GLOBAL_TARGET="$HOME/.config/opencode/agents"
 GLOBAL_TEMPLATE_TARGET="$HOME/.config/opencode/novelist/templates"
+GLOBAL_SKILL_TARGET="$HOME/.config/opencode/novelist/skills"
 PROJECT_TARGET="$SCRIPT_DIR/.opencode/agents"
 PROJECT_TEMPLATE_TARGET="$SCRIPT_DIR/.opencode/novelist/templates"
+PROJECT_SKILL_TARGET="$SCRIPT_DIR/.opencode/novelist/skills"
 
 echo "Select installation target:"
 echo "1) Current project  (.opencode/agents)"
@@ -70,16 +72,20 @@ case "$choice" in
     1)
         TARGET="$PROJECT_TARGET"
         TEMPLATE_TARGET="$PROJECT_TEMPLATE_TARGET"
+        SKILL_TARGET="$PROJECT_SKILL_TARGET"
         echo ""
         echo "Project-local install: $TARGET"
         echo "Project-local templates: $TEMPLATE_TARGET"
+        echo "Project-local skills: $SKILL_TARGET"
         ;;
     2)
         TARGET="$GLOBAL_TARGET"
         TEMPLATE_TARGET="$GLOBAL_TEMPLATE_TARGET"
+        SKILL_TARGET="$GLOBAL_SKILL_TARGET"
         echo ""
         echo "Global install: $TARGET"
         echo "Global templates: $TEMPLATE_TARGET"
+        echo "Global skills: $SKILL_TARGET"
         ;;
     *)
         echo "Invalid choice. Enter 1 (project) or 2 (global)."
@@ -90,18 +96,23 @@ esac
 # Create directories
 mkdir -p "$TARGET"
 mkdir -p "$TEMPLATE_TARGET"
+mkdir -p "$SKILL_TARGET"
 
 # Copy/install agents and production templates
 echo ""
 echo "Installing agents and production templates..."
 
-# Older releases installed templates under the agent directory, which can make
-# template Markdown files appear as callable agents in recursive agent discovery.
+# Older releases installed templates and skills under the agent directory, which
+# can make Markdown support files appear as callable agents in recursive agent discovery.
 rm -rf "$TARGET/templates"
+rm -rf "$TARGET/setting-collapse-detector"
 
 if [ "$RUNNING_FROM_REPO" = "true" ] && [ -d "$SCRIPT_DIR/agents" ]; then
-    # Copy from local repo (handles both .md files and skill subdirectories)
-    cp -r "$SCRIPT_DIR/agents"/* "$TARGET/"
+    # Copy agent files only. Support files live outside agent discovery.
+    cp "$SCRIPT_DIR/agents"/*.md "$TARGET/"
+    if [ -d "$SCRIPT_DIR/skills" ]; then
+        cp -r "$SCRIPT_DIR/skills"/* "$SKILL_TARGET/"
+    fi
     if [ -d "$SCRIPT_DIR/templates" ]; then
         cp -r "$SCRIPT_DIR/templates"/* "$TEMPLATE_TARGET/"
     fi
@@ -110,9 +121,9 @@ else
     for agent in novelist novelist-writer novelist-editor novelist-researcher novelist-loremaster novelist-otaku novelist-publisher; do
         curl -sSL "$REPO_URL/agents/${agent}.md" -o "$TARGET/${agent}.md"
     done
-    # Download skill
-    mkdir -p "$TARGET/setting-collapse-detector"
-    curl -sSL "$REPO_URL/agents/setting-collapse-detector/SKILL.md" -o "$TARGET/setting-collapse-detector/SKILL.md"
+    # Download supporting skill outside agent discovery
+    mkdir -p "$SKILL_TARGET/setting-collapse-detector"
+    curl -sSL "$REPO_URL/skills/setting-collapse-detector/SKILL.md" -o "$SKILL_TARGET/setting-collapse-detector/SKILL.md"
     # Download production continuity templates
     for template in style-guide character-sheet item-sheet location-sheet world-rule-sheet series-bible narrative-state verification-manifest verification-evidence retcon-proposal; do
         curl -sSL "$REPO_URL/templates/${template}.md" -o "$TEMPLATE_TARGET/${template}.md"
@@ -136,6 +147,9 @@ echo "   /novelist-researcher    - Research / LaTeX papers"
 echo "   /novelist-loremaster    - Setting archivist"
 echo "   /novelist-otaku         - Setting consistency verifier"
 echo "   /novelist-publisher     - EPUB build pipeline"
+echo ""
+echo " Skills installed outside agent discovery:"
+echo "   $SKILL_TARGET/setting-collapse-detector/SKILL.md"
 echo ""
 echo " Templates installed outside agent discovery:"
 echo "   $TEMPLATE_TARGET/style-guide.md"

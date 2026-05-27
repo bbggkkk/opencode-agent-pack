@@ -30,7 +30,7 @@ require_file agents/novelist-writer.md
 require_file agents/novelist-editor.md
 require_file agents/novelist-loremaster.md
 require_file agents/novelist-otaku.md
-require_file agents/setting-collapse-detector/SKILL.md
+require_file skills/setting-collapse-detector/SKILL.md
 require_file templates/style-guide.md
 require_file templates/character-sheet.md
 require_file templates/item-sheet.md
@@ -153,7 +153,7 @@ require_text agents/novelist-loremaster.md "narrative-state.md" "loremaster cont
 require_text agents/novelist-loremaster.md "Inventory Canon References" "loremaster inventory canon reference retrieval"
 require_text agents/novelist-loremaster.md "Location / World Canon References" "loremaster location world canon reference retrieval"
 require_text agents/novelist-loremaster.md "Character Voice Facts" "loremaster voice fact retrieval"
-require_text agents/setting-collapse-detector/SKILL.md "Style & Voice Continuity Collapse" "collapse detector style and voice category"
+require_text skills/setting-collapse-detector/SKILL.md "Style & Voice Continuity Collapse" "collapse detector style and voice category"
 
 require_text templates/style-guide.md "Character Voice Matrix" "style guide voice matrix scaffold"
 require_text templates/style-guide.md "Required Style Anchors:" "style guide required anchors scaffold"
@@ -238,8 +238,13 @@ require_text install.sh "EPUB build pipeline" "bash installer publisher build la
 require_text install.sh "Installing agents and production templates" "bash installer accurate install message"
 require_text install.sh "GLOBAL_TEMPLATE_TARGET" "bash installer global template target"
 require_text install.sh "PROJECT_TEMPLATE_TARGET" "bash installer project template target"
+require_text install.sh "GLOBAL_SKILL_TARGET" "bash installer global skill target"
+require_text install.sh "PROJECT_SKILL_TARGET" "bash installer project skill target"
 require_text install.sh 'rm -rf "$TARGET/templates"' "bash installer removes legacy agent templates"
+require_text install.sh 'rm -rf "$TARGET/setting-collapse-detector"' "bash installer removes legacy agent skill"
 require_text install.sh "Templates installed outside agent discovery" "bash installer templates outside agent discovery"
+require_text install.sh "Skills installed outside agent discovery" "bash installer skills outside agent discovery"
+require_text install.sh "skills/setting-collapse-detector/SKILL.md" "bash installer remote skill download"
 require_text install.sh 'templates/${template}.md' "bash installer remote template download"
 require_text install.ps1 '$TemplateTarget/style-guide.md' "powershell installer template output"
 require_text install.ps1 '$TemplateTarget/character-sheet.md' "powershell installer character sheet template output"
@@ -252,8 +257,13 @@ require_text install.ps1 '$TemplateTarget/retcon-proposal.md' "powershell instal
 require_text install.ps1 "EPUB build pipeline" "powershell installer publisher build label"
 require_text install.ps1 "GLOBAL_TEMPLATE_TARGET" "powershell installer global template target"
 require_text install.ps1 "PROJECT_TEMPLATE_TARGET" "powershell installer project template target"
+require_text install.ps1 "GLOBAL_SKILL_TARGET" "powershell installer global skill target"
+require_text install.ps1 "PROJECT_SKILL_TARGET" "powershell installer project skill target"
 require_text install.ps1 "LegacyTemplateTarget" "powershell installer removes legacy agent templates"
+require_text install.ps1 "LegacySkillTarget" "powershell installer removes legacy agent skill"
 require_text install.ps1 "Templates installed outside agent discovery" "powershell installer templates outside agent discovery"
+require_text install.ps1 "Skills installed outside agent discovery" "powershell installer skills outside agent discovery"
+require_text install.ps1 "skills/setting-collapse-detector/SKILL.md" "powershell installer remote skill download"
 require_text install.ps1 'templates/$($Template).md' "powershell installer remote template download"
 require_text install.ps1 'Test-Path (Join-Path $SCRIPT_DIR "agents")' "powershell local repo detection by agents directory"
 require_text install.ps1 "Running from the repository." "powershell local repo message"
@@ -264,7 +274,9 @@ require_text .github/workflows/validate.yml "make validate" "CI validation comma
 require_text .github/workflows/validate.yml "windows-latest" "CI Windows runner"
 require_text .github/workflows/validate.yml ".\\install.ps1 2" "CI PowerShell installer execution"
 require_text .github/workflows/validate.yml ".config/opencode/novelist/templates" "CI PowerShell template target outside agents"
+require_text .github/workflows/validate.yml ".config/opencode/novelist/skills" "CI PowerShell skill target outside agents"
 require_text .github/workflows/validate.yml "Templates must not be installed inside agent discovery path" "CI PowerShell rejects templates under agents"
+require_text .github/workflows/validate.yml "Skills must not be installed inside agent discovery path" "CI PowerShell rejects skills under agents"
 require_text .github/workflows/validate.yml "verification-manifest.md" "CI PowerShell template install assertion"
 require_text .github/workflows/validate.yml "character-sheet.md" "CI PowerShell character sheet install assertion"
 require_text .github/workflows/validate.yml "item-sheet.md" "CI PowerShell item sheet install assertion"
@@ -279,7 +291,9 @@ require_text scripts/validate-all.sh "scripts/test-production-artifacts-negative
 require_text scripts/validate-all.sh "scripts/smoke-install.sh" "validate-all install smoke step"
 require_text scripts/validate-sample-work.sh "scripts/validate-verification-manifest.sh" "sample work manifest validator hook"
 require_text scripts/smoke-install.sh "templates must not be installed inside agent discovery path" "smoke install rejects agent templates"
+require_text scripts/smoke-install.sh "setting-collapse-detector must not be installed inside agent discovery path" "smoke install rejects agent skills"
 require_text scripts/smoke-install.sh ".config/opencode/novelist/templates" "smoke install template target outside agents"
+require_text scripts/smoke-install.sh ".config/opencode/novelist/skills" "smoke install skill target outside agents"
 require_text scripts/validate-production-artifacts.sh "character voice matrix has no completed character rows" "artifact validator voice row check"
 require_text scripts/validate-production-artifacts.sh "required style anchors" "artifact validator required style anchors check"
 require_text scripts/validate-production-artifacts.sh "forbidden style drift" "artifact validator forbidden style drift check"
@@ -446,7 +460,7 @@ require_text scripts/validate-style-character-drift-scenario.sh "bad internet sl
 require_text scripts/validate-style-character-drift-scenario.sh "expected fail verdict" "style drift scenario fail check"
 require_text README.md "Revision And Retcon Safety" "README revision safety documentation"
 require_text README.md "Draft And Build Pipelines" "README pipeline split documentation"
-require_text README.md "Templates are installed outside agent discovery" "README templates outside agent discovery documentation"
+require_text README.md "Templates and support skills are installed outside agent discovery" "README templates and skills outside agent discovery documentation"
 require_text README.md "Single Work Franchise Layout" "README single work franchise layout"
 require_text README.md 'Root-level `series-bible.md` is not a valid production layout' "README rejects root series bible layout"
 require_text README.md "It does not create EPUB output" "README no automatic EPUB build documentation"
@@ -506,7 +520,7 @@ require_text README.md "UNVERIFIED DRAFT" "README writer standalone label docume
 require_text README.md "UNVERIFIED REVISION" "README editor standalone label documentation"
 require_text README.ko.md "수정 및 설정 변경 안전장치" "Korean README revision safety documentation"
 require_text README.ko.md "Draft / Build 파이프라인" "Korean README pipeline split documentation"
-require_text README.ko.md "템플릿은 agent discovery 밖에 설치됩니다" "Korean README templates outside agent discovery documentation"
+require_text README.ko.md "템플릿과 지원 skill은 agent discovery 밖에 설치됩니다" "Korean README templates and skills outside agent discovery documentation"
 require_text README.ko.md "한 작품 프랜차이즈 구조" "Korean README single work franchise layout"
 require_text README.ko.md '루트 바로 아래의 `series-bible.md`는 프로덕션 레이아웃으로 인정하지 않습니다' "Korean README rejects root series bible layout"
 require_text README.ko.md "EPUB은 만들지 않습니다" "Korean README no automatic EPUB build documentation"
@@ -563,7 +577,7 @@ require_text README.ko.md "UNVERIFIED DRAFT" "Korean README writer standalone la
 require_text README.ko.md "UNVERIFIED REVISION" "Korean README editor standalone label documentation"
 require_text docs/agent-design.md "Revision And Retcon Safety" "design revision safety documentation"
 require_text docs/agent-design.md "Draft And Build Pipelines" "design pipeline split documentation"
-require_text docs/agent-design.md "Templates are deliberately installed outside agent discovery" "design templates outside agent discovery documentation"
+require_text docs/agent-design.md "Templates and support skills are deliberately installed outside agent discovery" "design templates and skills outside agent discovery documentation"
 require_text docs/agent-design.md "This subdirectory is required even when the franchise currently has only one work" "design requires work subdirectory for single work"
 require_text docs/agent-design.md 'Root-level `series-bible.md` is not a valid production layout' "design rejects root series bible layout"
 require_text docs/agent-design.md "Build Pipeline" "design build pipeline documentation"
@@ -667,7 +681,7 @@ require_text docs/production-readiness-audit.md "make validate" "readiness audit
 require_text docs/agent-design.md "windows-latest" "design Windows CI documentation"
 
 reject_text "Done & Publish|완료 및 출판|Full loop & publishing|compile final consolidated draft into EPUB|EPUB book compiler|epub_temp|rm -rf epub_temp|Always run the full loop, compile" "deprecated coupled draft/build pipeline wording remains"
-reject_text 'cp -r templates .*opencode/agents|cp -r templates .*\.opencode/agents|Join-Path \$Target "templates"|TARGET/templates/style-guide' "template install path under agent discovery remains"
+reject_text 'cp -r templates .*opencode/agents|cp -r templates .*\.opencode/agents|Join-Path \$Target "templates"|TARGET/templates/style-guide|setting-collapse-detector/SKILL\.md" \] \|\| fail|Join-Path \$Target "setting-collapse-detector"|agents/setting-collapse-detector/SKILL\.md' "template or skill install path under agent discovery remains"
 reject_text "Standalone Work Layout|Isomorphic Fallback|root acts as both|Standalone mode|standalone mode|single standalone work|프랜차이즈 겸 작품|1단계 & 2단계 통합|단독 작품 구조" "deprecated root-as-work standalone layout wording remains"
 reject_text "Author/Person Imitation|Style & Imitation|style imitation targets|emulate the prose style|request to emulate|문체 모사|작가/인물 모방|모방 타깃|흉내 내도록|무라카미|하루키|김영하|opencode-agent-pack" "deprecated direct-imitation wording, named-author example, or old repository name remains"
 

@@ -28,14 +28,14 @@ jobs:
           .\install.ps1 2
           $target = Join-Path $env:HOME ".config/opencode/agents"
           $templateTarget = Join-Path $env:HOME ".config/opencode/novelist/templates"
+          $skillTarget = Join-Path $env:HOME ".config/opencode/novelist/skills"
           $requiredAgents = @(
             "novelist.md",
             "novelist-writer.md",
             "novelist-editor.md",
             "novelist-loremaster.md",
             "novelist-otaku.md",
-            "novelist-publisher.md",
-            "setting-collapse-detector/SKILL.md"
+            "novelist-publisher.md"
           )
           foreach ($path in $requiredAgents) {
             $fullPath = Join-Path $target $path
@@ -45,6 +45,13 @@ jobs:
           }
           if (Test-Path (Join-Path $target "templates")) {
             throw "Templates must not be installed inside agent discovery path"
+          }
+          if (Test-Path (Join-Path $target "setting-collapse-detector")) {
+            throw "Skills must not be installed inside agent discovery path"
+          }
+          $skillPath = Join-Path $skillTarget "setting-collapse-detector/SKILL.md"
+          if (-not (Test-Path $skillPath)) {
+            throw "Missing installed skill: $skillPath"
           }
           $requiredTemplates = @(
             "style-guide.md",
