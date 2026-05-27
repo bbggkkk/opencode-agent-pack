@@ -8,7 +8,7 @@ This pack uses a **hierarchical agent architecture** with one router agent at th
 Novelist (Router) — draft/build pipeline router
 ├── novelist-writer — fiction writing (scenes, dialogue, plot, narration)
 ├── novelist-editor — fiction editing (plot, character, prose, pacing)
-├── novelist-researcher — research & LaTeX paper writing
+├── novelist-researcher — fiction-context research for real-world plausibility
 ├── novelist-loremaster — setting archivist (context retrieval from files)
 ├── novelist-otaku — setting verifier (consistency checking)
 └── novelist-publisher — EPUB build pipeline (editable source + zip package)
@@ -84,7 +84,7 @@ The router agent analyzes the user's natural language request and **delegates** 
 | `novelist` | create, write, draft, scene, chapter | Full feedback loop & publishing → loremaster → writer → otaku → editor → publisher |
 | `novelist` | publish, epub, package, compile | `@novelist-publisher` |
 | `novelist` | fix, review, feedback, revise, edit | `@novelist-editor` → `@novelist-otaku` |
-| `novelist` | paper, latex, experiment, research | `@novelist-researcher` |
+| `novelist` | reality check, procedure, external facts, current facts, regional or historical research | `@novelist-researcher` |
 | `novelist` | setting, context, lore, find | `@novelist-loremaster` |
 | `novelist` | verify, check, validate | `@novelist-otaku` |
 
@@ -105,7 +105,7 @@ The design separates creation from feedback at every level:
 
 - **Writer agent** (`novelist-writer`) produces drafts with high temperature (0.8)
 - **Editor agent** (`novelist-editor`) diagnoses problems with low temperature (0.4)
-- **Research agent** (`novelist-researcher`) combines analysis and writing with low temperature (0.3)
+- **Research agent** (`novelist-researcher`) gathers real-world facts through the current story's viewpoint, style, and canon constraints with low temperature (0.25)
 - **Setting agents** (`novelist-loremaster`, `novelist-otaku`) provide factual grounding with low temperature (0.2)
 - **Router agent** (`novelist`) classifies and delegates with low temperature (0.3)
 
@@ -211,10 +211,9 @@ Each agent is paired with specific opencode skills that enhance its capabilities
 |-------|---------|---------|
 | `brainstorming` | novelist-writer, novelist-editor | Creative exploration before drafting or revision |
 | `writing-plans` | novelist-writer | Multi-step plan generation for episode outlines |
-| `brainstorming-research-ideas` | novelist-researcher | Ideation for new research directions |
+| `setting-collapse-detector` | novelist-loremaster, novelist-otaku | Systematic setting consistency verification |
 | `dispatching-parallel-agents` | novelist | Parallel execution of independent sub-agent calls |
 | `executing-plans` | novelist | Structured execution of multi-step plans |
-| `setting-collapse-detector` | novelist-loremaster, novelist-otaku | Systematic setting consistency verification |
 
 ### Skill Invocation
 

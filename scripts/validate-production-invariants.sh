@@ -119,6 +119,14 @@ require_text agents/novelist-editor.md "Standalone Invocation Safety" "editor st
 require_text agents/novelist-editor.md "UNVERIFIED REVISION" "editor unverified revision label"
 require_text agents/novelist-editor.md "requires @novelist-otaku final PASS and verification-manifest.md ledger update before application, use, or publication" "editor standalone pass gate"
 
+require_text agents/novelist-researcher.md "Fiction context researcher" "researcher fiction context identity"
+require_text agents/novelist-researcher.md "real-world information" "researcher real world research role"
+require_text agents/novelist-researcher.md "filtered through the current work's story context" "researcher context filtering"
+require_text agents/novelist-researcher.md "Viewpoint Filtering" "researcher viewpoint filtering"
+require_text agents/novelist-researcher.md "Do not draft scenes" "researcher no prose drafting"
+require_text agents/novelist-researcher.md "Do not change drafts, settings, manifests, or EPUB files" "researcher no file mutation"
+require_text agents/novelist-researcher.md "Suggested Prompt To Writer / Editor" "researcher downstream prompt output"
+
 require_text agents/novelist-otaku.md "FAIL for Character Drift" "otaku character drift fail condition"
 require_text agents/novelist-otaku.md "FAIL for Ledger Contradiction" "otaku ledger contradiction fail condition"
 require_text agents/novelist-otaku.md "FAIL for Unsafe Revision Span" "otaku unsafe revision span fail condition"
@@ -460,6 +468,7 @@ require_text scripts/validate-style-character-drift-scenario.sh "bad internet sl
 require_text scripts/validate-style-character-drift-scenario.sh "expected fail verdict" "style drift scenario fail check"
 require_text README.md "Revision And Retcon Safety" "README revision safety documentation"
 require_text README.md "Draft And Build Pipelines" "README pipeline split documentation"
+require_text README.md "Fiction-context research" "README researcher fiction context documentation"
 require_text README.md "Templates and support skills are installed outside agent discovery" "README templates and skills outside agent discovery documentation"
 require_text README.md "Single Work Franchise Layout" "README single work franchise layout"
 require_text README.md 'Root-level `series-bible.md` is not a valid production layout' "README rejects root series bible layout"
@@ -520,6 +529,7 @@ require_text README.md "UNVERIFIED DRAFT" "README writer standalone label docume
 require_text README.md "UNVERIFIED REVISION" "README editor standalone label documentation"
 require_text README.ko.md "수정 및 설정 변경 안전장치" "Korean README revision safety documentation"
 require_text README.ko.md "Draft / Build 파이프라인" "Korean README pipeline split documentation"
+require_text README.ko.md "소설 맥락 조사" "Korean README researcher fiction context documentation"
 require_text README.ko.md "템플릿과 지원 skill은 agent discovery 밖에 설치됩니다" "Korean README templates and skills outside agent discovery documentation"
 require_text README.ko.md "한 작품 프랜차이즈 구조" "Korean README single work franchise layout"
 require_text README.ko.md '루트 바로 아래의 `series-bible.md`는 프로덕션 레이아웃으로 인정하지 않습니다' "Korean README rejects root series bible layout"
@@ -577,6 +587,7 @@ require_text README.ko.md "UNVERIFIED DRAFT" "Korean README writer standalone la
 require_text README.ko.md "UNVERIFIED REVISION" "Korean README editor standalone label documentation"
 require_text docs/agent-design.md "Revision And Retcon Safety" "design revision safety documentation"
 require_text docs/agent-design.md "Draft And Build Pipelines" "design pipeline split documentation"
+require_text docs/agent-design.md "fiction-context research for real-world plausibility" "design researcher fiction context documentation"
 require_text docs/agent-design.md "Templates and support skills are deliberately installed outside agent discovery" "design templates and skills outside agent discovery documentation"
 require_text docs/agent-design.md "This subdirectory is required even when the franchise currently has only one work" "design requires work subdirectory for single work"
 require_text docs/agent-design.md 'Root-level `series-bible.md` is not a valid production layout' "design rejects root series bible layout"
@@ -683,6 +694,7 @@ require_text docs/agent-design.md "windows-latest" "design Windows CI documentat
 reject_text "Done & Publish|완료 및 출판|Full loop & publishing|compile final consolidated draft into EPUB|EPUB book compiler|epub_temp|rm -rf epub_temp|Always run the full loop, compile" "deprecated coupled draft/build pipeline wording remains"
 reject_text 'cp -r templates .*opencode/agents|cp -r templates .*\.opencode/agents|Join-Path \$Target "templates"|TARGET/templates/style-guide|setting-collapse-detector/SKILL\.md" \] \|\| fail|Join-Path \$Target "setting-collapse-detector"|agents/setting-collapse-detector/SKILL\.md' "template or skill install path under agent discovery remains"
 reject_text "Standalone Work Layout|Isomorphic Fallback|root acts as both|Standalone mode|standalone mode|single standalone work|프랜차이즈 겸 작품|1단계 & 2단계 통합|단독 작품 구조" "deprecated root-as-work standalone layout wording remains"
+reject_text "Research & LaTeX paper writing|Research scientist: analyzes project context|writes LaTeX papers|paper, latex, experiment|LaTeX paper from|LaTeX 논문" "deprecated researcher academic-paper role remains"
 reject_text "Author/Person Imitation|Style & Imitation|style imitation targets|emulate the prose style|request to emulate|문체 모사|작가/인물 모방|모방 타깃|흉내 내도록|무라카미|하루키|김영하|opencode-agent-pack" "deprecated direct-imitation wording, named-author example, or old repository name remains"
 
 scripts/validate-continuity-scenario.sh

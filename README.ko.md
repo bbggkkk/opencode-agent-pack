@@ -11,7 +11,7 @@ opencode를 위한 계층형 한국어 창작 에이전트 팩입니다. **Novel
 | `/novelist` | **라우터 (Router)** — draft 작업과 EPUB build 작업을 분리해 라우팅합니다. |
 | `/novelist-writer` | 소설 집필: 씬, 대사, 서사, 캐릭터 감정 묘사, 회차 초고를 작성합니다. |
 | `/novelist-editor` | 소설 퇴고: 플롯 논리, 캐릭터 일관성, 문체 리듬, 템포/페이스 조절 및 피드백을 제공합니다. |
-| `/novelist-researcher` | 연구 및 LaTeX 논문 작성: 실험 데이터 분석 및 학술적 글쓰기를 담당합니다. |
+| `/novelist-researcher` | 소설 맥락 조사: 현재 장면의 관점과 설정을 기준으로 현실성, 절차, 지역/시대/기술 정보를 조사합니다. |
 | `/novelist-loremaster` | 설정 기록가: 파일 내 설정 정보를 검색하여 구조화된 설정 자료 문서를 취합합니다. |
 | `/novelist-otaku` | 설정 검증가: 집필된 초고가 기설정된 세계관 및 설정 가이드와 일치하는지 철저히 대조합니다. |
 | `/novelist-publisher` | EPUB 빌드 에이전트: 검증이 끝난 드래프트를 수정 가능한 EPUB source로 만들고, 시스템 zip 명령어로 `.epub` 파일을 빌드합니다. |
@@ -221,7 +221,7 @@ exit  # 또는 Ctrl+D를 입력해 세션을 종료한 후 opencode 재시작
 /novelist 이 씬의 전개 속도가 너무 느린데 수정해 줘
   → @novelist-editor → @novelist-otaku 검증
 
-/novelist 이 프로젝트 실험 결과를 바탕으로 LaTeX 논문을 작성해 줘
+/novelist 이 장면의 응급실 절차가 현실적으로 맞는지 조사해 줘
   → @novelist-researcher
 ```
 

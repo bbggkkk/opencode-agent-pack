@@ -11,7 +11,7 @@ A hierarchical Korean creative agent pack for opencode. The **Novelist** router 
 | `/novelist` | **Router** — routes draft work and EPUB build work into separate pipelines |
 | `/novelist-writer` | Fiction writing: scenes, dialogue, plot, character emotion, episode drafts |
 | `/novelist-editor` | Fiction editing: plot logic, character consistency, prose rhythm, pacing |
-| `/novelist-researcher` | Research & LaTeX paper writing: experiment analysis, academic writing |
+| `/novelist-researcher` | Fiction-context research: checks real-world plausibility and gathers external facts through the current story context |
 | `/novelist-loremaster` | Setting archivist: searches files for setting info, compiles structured documents |
 | `/novelist-otaku` | Setting verifier: cross-examines drafts against setting for consistency |
 | `/novelist-publisher` | EPUB build agent: creates editable EPUB source from verified drafts and packages `.epub` files using zip commands |
@@ -221,7 +221,7 @@ Before production writing, run `scripts/validate-production-artifacts.sh [work-p
 /novelist This scene's pacing feels slow, please fix it
   → @novelist-editor → @novelist-otaku verify
 
-/novelist Write a LaTeX paper from this project's experiment results
+/novelist 이 장면의 응급실 절차가 현실적으로 맞는지 조사해 줘
   → @novelist-researcher
 ```
 

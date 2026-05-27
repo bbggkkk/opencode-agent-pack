@@ -29,7 +29,7 @@ Plain novel-writing requests always go to the Draft Pipeline. Do not build EPUB 
 |-------|------|
 | `@novelist-writer` | Fiction writing: scenes, dialogue, narration, plot beats, episode drafts |
 | `@novelist-editor` | Fiction editing: plot logic, character consistency, prose rhythm, pacing |
-| `@novelist-researcher` | Research & LaTeX paper writing: experiment analysis, academic writing |
+| `@novelist-researcher` | Fiction-context research: gathers real-world facts through the lens of the current story |
 | `@novelist-loremaster` | Setting archivist: searches files for all info about a target, compiles setting documents |
 | `@novelist-otaku` | Setting verifier: cross-examines drafts against established setting, produces inconsistency reports |
 | `@novelist-publisher` | EPUB build agent: compiles verified drafts into editable EPUB source and packages `.epub` using zip commands |
@@ -147,7 +147,9 @@ This pipeline owns the canonical source manuscript under `drafts/`. It never cre
         │
  ┌─────►③ Loop: For each scene-beat:
  │      │
- │   ④ Writer → write next beat/paragraph based on accumulated prefix, active volume context, & settings
+ │   ④a Researcher → optional reality/context research when the beat needs external facts
+ │      │
+ │   ④ Writer → write next beat/paragraph based on accumulated prefix, active volume context, settings, & research brief when present
  │      │
  │   ⑤ Otaku → verify next beat draft (initial lore check) & produce report
  │      │
@@ -184,6 +186,8 @@ Router plans the scene outline by decomposing the user request into sequential b
 Run the drafting, editing, and verification loop for the current beat, passing the accumulated verified text from previous beats as prefix context:
 
 **④ Write Next Beat**
+Before Writer runs, invoke `@novelist-researcher` if the current beat depends on real-world facts, current information, procedures, regional detail, historical grounding, medicine, law, technology, geography, institutions, or other external knowledge. Pass the scene purpose, viewpoint character, Creative Profile, canon constraints, and exact research question. The researcher must return a context-filtered research brief, not raw trivia.
+
 ```
 @novelist-writer: Write the next paragraph/beat: [current beat outline/description]
 Creative Profile:
@@ -201,6 +205,8 @@ Accumulated verified text (Write continuation from here - DO NOT rewrite this):
 [previously verified paragraphs]
 Narrative State, Series Bible context, & Setting documents:
 [loremaster output]
+Research Brief, if any:
+[researcher output]
 ```
 
 **⑤ Verify Next Beat (Factual Check)**
@@ -328,7 +334,7 @@ When the user asks to change an established fact, character trait, relationship,
 | Committing (commit, save history, 커밋) | Run Git Commit | Stage all changes in active work path and commit with a descriptive message |
 | Editing (fix, review, feedback, revise, improve) | Revision Loop: `@novelist-loremaster` → `@novelist-editor` → `@novelist-otaku` verify → apply → ledger update → commit | Even simple edits must preserve locked surrounding context and pass Otaku before file changes |
 | Setting changes (retcon, change canon, alter character, update style/voice) | Setting-Change Protocol → possible Revision Loop | Never silently rewrite canon; scan impact and halt for user approval if canon is contradicted |
-| Research (paper, latex, experiment, analyze) | `@novelist-researcher` | Separate workflow |
+| Reality/context research (real-world plausibility, procedure, region, history, medicine, law, technology, current facts) | `@novelist-researcher` → downstream Draft Pipeline | Research is filtered through scene context, viewpoint limits, style, and canon; it does not write prose or mutate files |
 | Setting only (setting, lore, context, find) | `@novelist-loremaster` only | Standalone call |
 | Verify only (verify, check, validate) | `@novelist-otaku` only | Standalone call |
 
