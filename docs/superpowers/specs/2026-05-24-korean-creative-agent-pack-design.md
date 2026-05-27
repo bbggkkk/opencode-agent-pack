@@ -36,7 +36,7 @@ Fiction editor and feedback agent. Reviews plot logic, character consistency, pr
 
 ### novel-publisher
 
-EPUB book compiler. Formats verified drafts into semantic XHTML chapters, generates required XML metadata manifests, and packages them into valid EPUB files using the system `zip` command.
+EPUB build pipeline. Formats verified drafts into persistent editable `epub-src/` XHTML/CSS/metadata source, then packages that source into valid EPUB files using the system `zip` command. Story edits return to the draft pipeline first; layout and metadata edits can be made in `epub-src/` and rebuilt.
 
 
 
@@ -50,10 +50,12 @@ Agents write in the language and style explicitly requested by the user.
 4. **Cultural Context Inference**: The cultural context is inferred based on the target language and its corresponding country/countries. If ambiguous, the agents prompt the user to input it.
 5. **Web Novel Layout Format**: By default, agents write drafts in standard web novel format: paragraphs are separated strictly by a standard blank line (double newlines `\n\n`), without any hardcoded space indentation characters at the beginning. Dialogues are wrapped in double quotes `"..."` on a new line. All visual formatting (margins, indents, margins-bottom) is handled by the EPUB's CSS stylesheet during compilation.
 6. **Korean-First Creative Writing**: Korean is the default context. When writing in Korean, outputs should prioritize natural sentence rhythm, believable dialogue, genre conventions, emotional continuity, and avoidance of stale cliches, representing a Korean cultural background.
+7. **Default Prose Baseline**: If no style is declared, the default is elegant, controlled, and assured literary prose by a renowned, seasoned professional novelist.
+8. **Character Voice Matrix**: Character speech register, vocabulary limits, taboo expressions, habitual phrases, silence patterns, and emotional tells are persisted in the work-level style guide.
 
-## Style & Imitation Policy
+## Style & Originality Policy
 
-The system supports flexible style enforcement and imitation. The user can specify the prose style using direct descriptions (e.g. "concise, cold, hardboiled") OR request to emulate the prose style of a specific author or person (e.g. "Haruki Murakami style", "Kim Young-ha style"). The agents (Writer and Editor) will analyze the signature characteristics of the requested style (sentence structure, pacing, vocabulary preferences, dialogue patterns) and adapt their prose output to match it.
+The system supports flexible style enforcement. The user can specify the prose style using direct descriptions (e.g. "concise, cold, hardboiled") or reference a creator/person as shorthand for broad traits such as atmosphere, pacing, sentence density, vocabulary preferences, or dialogue texture. The agents convert named-author requests into broad traits and produce original prose; they do not directly imitate living authors.
 
 ## Distribution
 
@@ -117,7 +119,8 @@ permission:
    - The system organizes creative projects into an isomorphic 3-level hierarchy: Franchise (shared settings at root), Work (subdirectory with `series-bible.md` and work local `settings/`), and Volume (subdirectory like `volume-N/` inside the work).
    - If `series-bible.md` is at the project root, the project falls back to Standalone mode, treating the root as both Franchise and Work levels.
    - The `series-bible.md` ledger (at Work level) tracks chronology, summaries of previous volumes, character evolution states, and active plot threads for that specific work.
-   - **Work-Level Style Guide**: The prose style (style, tone, vocabulary preferences, and specific author/person style imitation targets) is formally declared in either the `## Style Guide` section of `series-bible.md` or a local config file at `settings/style-guide.md` at the active Work level. The `@novelist` router automatically inherits and propagates these style settings to the Writer and Editor, ensuring that all volumes and drafts written under this Work maintain a consistent, unified prose style.
+   - **Work-Level Style Guide**: The prose style (style, tone, vocabulary preferences, broad reference traits, and Character Voice Matrix) is formally declared in either the `## Style Guide` section of `series-bible.md` or a local config file at `settings/style-guide.md` at the active Work level. The `@novelist` router automatically inherits and propagates these style settings to the Writer and Editor, ensuring that all volumes and drafts written under this Work maintain a consistent, unified prose style.
+   - **Volume Narrative State**: Each active volume maintains `narrative-state.md` as a continuity ledger for current timeline point, locked-prefix summary, character locations, inventory, injuries, emotional state, relationship deltas, and open hooks.
    - For Volume N (where N > 1), `@novelist-loremaster` retrieves previous volume summaries from the Work-level Series Bible to construct the backstory context.
    - Character attributes (ages, injuries) must align with the active volume's Evolution Log in the Work-level `series-bible.md`.
    - Local narrative states (previous chapter outlines, character conditions) are loaded relative to the active volume directory (`[Active Work Path][Active Volume Path]`).

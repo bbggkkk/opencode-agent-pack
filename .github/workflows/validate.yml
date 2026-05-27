@@ -1,0 +1,54 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run production validation suite
+        run: make validate
+
+  windows-install-smoke:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run PowerShell installer smoke test
+        shell: pwsh
+        run: |
+          $env:HOME = Join-Path $env:RUNNER_TEMP "opencode-novelist-home"
+          New-Item -ItemType Directory -Force -Path $env:HOME | Out-Null
+          .\install.ps1 2
+          $target = Join-Path $env:HOME ".config/opencode/agents"
+          $required = @(
+            "novelist.md",
+            "novelist-writer.md",
+            "novelist-editor.md",
+            "novelist-loremaster.md",
+            "novelist-otaku.md",
+            "novelist-publisher.md",
+            "setting-collapse-detector/SKILL.md",
+            "templates/style-guide.md",
+            "templates/character-sheet.md",
+            "templates/item-sheet.md",
+            "templates/location-sheet.md",
+            "templates/world-rule-sheet.md",
+            "templates/series-bible.md",
+            "templates/narrative-state.md",
+            "templates/verification-manifest.md",
+            "templates/verification-evidence.md",
+            "templates/retcon-proposal.md"
+          )
+          foreach ($path in $required) {
+            $fullPath = Join-Path $target $path
+            if (-not (Test-Path $fullPath)) {
+              throw "Missing installed file: $fullPath"
+            }
+          }

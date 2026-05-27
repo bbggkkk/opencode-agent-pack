@@ -43,17 +43,17 @@ if [ -z "$1" ]; then
         echo "Usage:"
         echo ""
         echo "  # Interactive (download then run)"
-        echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh -o install.sh"
+        echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-novelist/master/install.sh -o install.sh"
         echo "  chmod +x install.sh"
         echo "  ./install.sh"
         echo ""
         echo "  # One-liner (pass argument)"
-        echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 1"
-        echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-agent-pack/master/install.sh | sh -s -- 2"
+        echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-novelist/master/install.sh | sh -s -- 1"
+        echo "  curl -sSL https://raw.githubusercontent.com/bbggkkk/opencode-novelist/master/install.sh | sh -s -- 2"
         echo ""
         echo "  # Clone then run (interactive)"
-        echo "  git clone https://github.com/bbggkkk/opencode-agent-pack.git"
-        echo "  cd opencode-agent-pack"
+        echo "  git clone https://github.com/bbggkkk/opencode-novelist.git"
+        echo "  cd opencode-novelist"
         echo "  ./install.sh"
         echo ""
         exit 1
@@ -84,13 +84,17 @@ esac
 # Create directory
 mkdir -p "$TARGET"
 
-# Copy/install agents
+# Copy/install agents and production templates
 echo ""
-echo "Installing agents..."
+echo "Installing agents and production templates..."
 
 if [ "$RUNNING_FROM_REPO" = "true" ] && [ -d "$SCRIPT_DIR/agents" ]; then
     # Copy from local repo (handles both .md files and skill subdirectories)
     cp -r "$SCRIPT_DIR/agents"/* "$TARGET/"
+    if [ -d "$SCRIPT_DIR/templates" ]; then
+        mkdir -p "$TARGET/templates"
+        cp -r "$SCRIPT_DIR/templates"/* "$TARGET/templates/"
+    fi
 else
     # Download from GitHub
     for agent in novelist novelist-writer novelist-editor novelist-researcher novelist-loremaster novelist-otaku novelist-publisher; do
@@ -99,6 +103,11 @@ else
     # Download skill
     mkdir -p "$TARGET/setting-collapse-detector"
     curl -sSL "$REPO_URL/agents/setting-collapse-detector/SKILL.md" -o "$TARGET/setting-collapse-detector/SKILL.md"
+    # Download production continuity templates
+    mkdir -p "$TARGET/templates"
+    for template in style-guide character-sheet item-sheet location-sheet world-rule-sheet series-bible narrative-state verification-manifest verification-evidence retcon-proposal; do
+        curl -sSL "$REPO_URL/templates/${template}.md" -o "$TARGET/templates/${template}.md"
+    done
 fi
 
 echo "Installation complete!"
@@ -117,5 +126,17 @@ echo "   /novelist-editor        - Fiction editor"
 echo "   /novelist-researcher    - Research / LaTeX papers"
 echo "   /novelist-loremaster    - Setting archivist"
 echo "   /novelist-otaku         - Setting consistency verifier"
-echo "   /novelist-publisher     - EPUB book compiler"
+echo "   /novelist-publisher     - EPUB build pipeline"
+echo ""
+echo " Templates installed:"
+echo "   templates/style-guide.md"
+echo "   templates/character-sheet.md"
+echo "   templates/item-sheet.md"
+echo "   templates/location-sheet.md"
+echo "   templates/world-rule-sheet.md"
+echo "   templates/series-bible.md"
+echo "   templates/narrative-state.md"
+echo "   templates/verification-manifest.md"
+echo "   templates/verification-evidence.md"
+echo "   templates/retcon-proposal.md"
 echo "=================================================="

@@ -34,6 +34,7 @@ Check every named character in the draft against the setting document:
 | Relationships | Family, friends, enemies, romantic connections, affiliations |
 | Backstory | Past events they experienced, places they've been, people they've met |
 | Injuries | Wounds, scars, disabilities, recovery state |
+| Voice Matrix | Register, vocabulary limits, habitual expressions, taboo terms, silence patterns, emotional tells |
 
 ### 2. Timeline Collapse
 
@@ -95,9 +96,23 @@ Check what characters say against what they know:
 |-------|-----------------|
 | Knowledge | Character mentioning events they didn't witness or weren't told about |
 | Vocabulary | Words/terms the character wouldn't use given their background |
+| Register | Formality level, dialect, honorifics, profanity, and intimacy level matching the character and relationship |
+| Emotional tell | Whether the character's phrasing under stress matches established behavior |
 | Secrets | Revealing information they promised to keep hidden |
 | Anachronism | References to things that don't exist yet in the timeline |
 | Meta-knowledge | Character knowing something the author knows but they shouldn't |
+
+### 7. Style & Voice Continuity Collapse
+
+Check durable prose and voice constraints without judging aesthetic taste:
+
+| Check | What to look for |
+|-------|-----------------|
+| Style contract | Sentence rhythm, diction, metaphor density, POV distance, and emotional temperature remain within the declared style guide |
+| Default baseline | If no style is declared, prose remains elegant, controlled, and assured rather than generic, flat, or tonally erratic |
+| Character voice | Dialogue and internal narration preserve each character's established linguistic fingerprint |
+| Drift | Sudden unmotivated shifts in comedy level, melodrama, exposition density, or genre register |
+| Living-author request | Named living author references are converted into broad traits, not direct imitation |
 
 ## Output Format
 
