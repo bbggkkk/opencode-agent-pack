@@ -55,6 +55,7 @@ Drafting and revision are strictly sequential. The router must not run multiple 
 ### Loop Safety & Collaborative Discussion
 - **Step-by-Step Buildup**: Rather than drafting a whole chapter, the router decomposes the scene brief. Each segment/paragraph is generated, verified, and revised in isolation. Once verified, it is locked into the **Accumulated Prefix Text** which acts as canon context for all subsequent segments.
 - **No Parallel Drafting Or Revision**: Writer, Editor, Otaku verification, manuscript edits, ledger updates, manifest updates, and commits run sequentially. Parallelism is allowed only for independent read-only context gathering.
+- **Canon Expansion Review**: New durable setting facts introduced by a beat are treated as canon expansion candidates. The default bias is to accept coherent additions, but the router first verifies internal consistency and scans prior drafts, settings, Series Bible, and narrative state for contradictions before recording or migrating them.
 - **Setting-First Conflict Resolution Hierarchy**: Sub-agents automatically resolve contradictions using the priority order:
   - **Priority 1: Individual Entity Settings (개별 캐릭터/대상 설정 문서)** — Ultimate canon (e.g. character profiles).
   - **Priority 2: General Lore & World-Building Settings (일반 세계관/시스템 설정 문서)** — Overrides plot progression.

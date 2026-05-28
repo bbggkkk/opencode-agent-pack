@@ -1,10 +1,20 @@
 # Retcon Proposal: TBD
 
 - Status: PENDING
+- Change Type: TBD
+- Decision: TBD
 - Requested Change: TBD
 - Reason: TBD
 - User Approval: TBD
 - Approval Evidence: TBD
+
+## Candidate Setting
+
+- Proposed Fact: TBD
+- Source Draft / Beat: TBD
+- Internal Consistency Verdict: TBD
+- Prior Narrative Impact Verdict: TBD
+- Acceptance Rationale: TBD
 
 ## Impacted Drafts
 

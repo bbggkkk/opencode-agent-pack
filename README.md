@@ -309,6 +309,8 @@ Revision requests use a protected revision loop: `@novelist-loremaster` loads ca
 
 Requests that change established setting, character traits, relationships, style contracts, or prior events are treated as setting-change requests. The router must classify the change, scan impacted files, and halt for user approval when the requested change contradicts existing Priority 1/2/3 canon. Canon is never silently retconned. Approved migrations are recorded in `retcons/*.md` from `templates/retcon-proposal.md`, and any affected Verification Evidence report must link that approved Retcon Approval file.
 
+New durable setting facts introduced during drafting use Canon Expansion Review instead of automatic rejection. The router prefers accepting coherent additions because they enrich the work, but it first checks the new fact for internal consistency, scans prior drafts and canon for contradictions, then either records the fact, requests user approval for a migration, or sends the beat back for rewrite.
+
 Publishing is gated by `verification-manifest.md`; drafts that are missing, duplicated in the manifest, stale in the manifest, draft-hash-mismatched, canon-hash-mismatched, pending, failed, unverified, style-drifted, character-voice-drifted, hard-indented, conflict-marked, raw-HTML-contaminated, contain Character Voice Matrix taboo expressions, or contain Style Guide Forbidden Literal Phrases cannot be packaged.
 
 ## Validation

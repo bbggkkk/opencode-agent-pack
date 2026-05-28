@@ -302,6 +302,8 @@ Setting documents & Series Bible context:
 
 If PASS, consolidate and commit. If FAIL, return verification report to Editor to fix.
 
+If Otaku returns **New Setting Candidates** or `CANON_EXPANSION_REVIEW`, do not treat the candidate as ordinary prose polish. Route it through the Canon Expansion Review Protocol before consolidation. The default preference is to accept enriching new canon when it is internally consistent and can be made safe through documented impact scanning.
+
 After PASS, update `[Active Work Path][Active Volume Path]narrative-state.md` with:
 - New established facts
 - Character location, inventory, injuries, emotional state, and relationship deltas
@@ -360,6 +362,24 @@ When the user asks to change an established fact, character trait, relationship,
 5. **Migration After Approval**: Only after the user confirms the migration and the Retcon Proposal is approved, update the affected setting files first, then revise affected manuscript passages through the Revision Loop.
 6. **Versioned Rationale**: Record the reason for the setting change in `series-bible.md` or the relevant settings file so future agents know it is intentional, then link the approved `retcons/*.md` path from the affected Verification Evidence report.
 
+### Canon Expansion Review Protocol
+
+When Otaku finds a new durable setting fact in generated prose, treat it as a **canon expansion candidate**, not automatically as an error. This covers newly introduced rules, object properties, backstory facts, relationship facts, locations, organizations, abilities, constraints, or history that were not previously documented.
+
+1. **Classify the candidate** as one of:
+   - `ADDITIVE_CANON`: New fact enriches canon and does not alter prior meaning.
+   - `COMPATIBLE_REINTERPRETATION`: New fact reframes prior text but does not contradict it.
+   - `RETCON_REQUIRED`: New fact contradicts established settings or verified prose unless prior material changes.
+   - `REJECTED_CONTRADICTION`: New fact should not be accepted because it breaks Priority 1/2/3 canon or the user's explicit direction.
+2. **Internal Consistency Check**: Ask `@novelist-loremaster` and `@novelist-otaku` to verify the candidate against entity settings, world rules, Series Bible, style guide voice constraints, `narrative-state.md`, and the current beat. The setting itself must be coherent before any prior prose migration is considered.
+3. **Prior Narrative Impact Scan**: Search all affected prior drafts, verification reports, `narrative-state.md`, `series-bible.md`, and `settings/**/*.md` for scenes or facts that the candidate could contradict. Include character knowledge, item state, world-rule usage, timeline, and relationship implications.
+4. **Acceptance Bias With Safety**: Prefer `ACCEPT_AND_RECORD` when no contradiction is found or when the candidate only requires additive documentation. Accepting safe expansion makes the world richer. Do not accept if the scan finds direct contradictions that would require changing verified prose without user approval.
+5. **Record Decision**:
+   - For `ADDITIVE_CANON`, update the relevant setting file, `series-bible.md`, `narrative-state.md`, `writing-session.md`, manifest, and evidence before consolidation.
+   - For `COMPATIBLE_REINTERPRETATION` or `RETCON_REQUIRED`, create or update `[Active Work Path]retcons/*.md` from `templates/retcon-proposal.md`, set the decision and impact scan, ask for user approval if verified prose or Priority 1/2/3 canon must change, then run the Revision Loop for impacted passages.
+   - For `REJECTED_CONTRADICTION`, send the issue back to Editor to remove or rewrite the candidate without changing canon.
+6. **Verification After Decision**: Re-run Otaku final verification after the canon files and any impacted prose are updated. Publication remains blocked until `verification-manifest.md` and Verification Evidence reflect the accepted or rejected decision.
+
 ## Routing Rules
 
 | Request | Route | Notes |
@@ -371,6 +391,7 @@ When the user asks to change an established fact, character trait, relationship,
 | Committing (commit, save history, 커밋) | Run Git Commit | Stage all changes in active work path and commit with a descriptive message |
 | Editing (fix, review, feedback, revise, improve) | Revision Loop: `@novelist-loremaster` → `@novelist-editor` → `@novelist-otaku` verify → apply → ledger update → commit | Even simple edits must preserve locked surrounding context and pass Otaku before file changes |
 | Setting changes (retcon, change canon, alter character, update style/voice) | Setting-Change Protocol → possible Revision Loop | Never silently rewrite canon; scan impact and halt for user approval if canon is contradicted |
+| New setting fact in draft | Canon Expansion Review Protocol → accept-and-record, impact scan, possible Revision Loop | Prefer accepting coherent additions, but verify internal consistency and prior narrative impact before consolidation |
 | Reality/context research (real-world plausibility, procedure, region, history, medicine, law, technology, current facts) | `@novelist-researcher` → downstream Draft Pipeline | Research is filtered through scene context, viewpoint limits, style, and canon; it does not write prose or mutate files |
 | Setting only (setting, lore, context, find) | `@novelist-loremaster` only | Standalone call |
 | Verify only (verify, check, validate) | `@novelist-otaku` only | Standalone call |
