@@ -37,12 +37,12 @@ The initial user request defines the completion target. Unless the user interven
 The Draft Pipeline uses a **Seed-to-Fruit Narrative Growth** model without replacing the existing feedback loop:
 
 - **Seed**: capture the user's initial request as Requested Scope of Work and Completion Target.
-- **Branches**: adopt the user's macro outline or author a provisional Macro Skeleton from canon artifacts, genre expectations, and reasonable creative defaults. The skeleton records major arcs, chapter/sequence purposes, turning points, escalation, endpoint, character movement, and constraints.
-- **Leaves**: decompose the skeleton into an Execution Unit Queue and draft each unit through the existing Writer → Otaku → Editor → Otaku loop.
-- **Flowers**: refine each unit through micro-level prose/style editing by Editor, voice/style audit, and macro branch traversal verification by Otaku.
-- **Fruit**: deliver only after the requested scope is complete and verified with ledgers, manifest, evidence, and commits.
+- **Branches**: adopt the user's macro outline or author a provisional Macro Skeleton from canon artifacts, genre expectations, and reasonable creative defaults. The skeleton records major arcs, chapter/sequence purposes, turning points, escalation, endpoint, character movement, constraints, and the Length Budget for each branch/execution unit.
+- **Leaves**: decompose the skeleton into an Execution Unit Queue and draft each unit through the existing Writer → Otaku → Editor → Otaku loop. Every leaf must attach to a parent branch and target/minimum character budget.
+- **Flowers**: refine each unit through micro-level prose/style editing by Editor, voice/style audit, and macro branch traversal plus length verification by Otaku.
+- **Fruit**: deliver only after the requested scope and promised minimum length are complete and verified with ledgers, manifest, evidence, and commits.
 
-The router does not require the user to provide the branches. It asks only when a missing macro decision is mutually exclusive, high-impact, and impossible to infer from the request or canon. Editor stays focused on micro-level prose, speech style, formatting, local causality, pacing, and immediate scene readability. Otaku owns the macro Branch Traversal Audit and checks whether the draft is still traveling along the assigned branch. After every verified unit, the router performs a Skeleton Drift Check using Otaku's Branch Traversal Audit. Safe improvements update the Macro Skeleton with rationale; changes to requested scope, endpoint, genre promise, or Priority 1/2/3 canon require user approval.
+The router does not require the user to provide the branches. It asks only when a missing macro decision is mutually exclusive, high-impact, and impossible to infer from the request or canon. Editor stays focused on micro-level prose, speech style, formatting, local causality, pacing, immediate scene readability, and length preservation. Otaku owns the macro Branch Traversal Audit and Length Verification, checking whether the draft is still traveling along the assigned branch and whether actual character-count evidence meets the Length Budget. After every verified unit, the router performs a Skeleton Drift Check and Length Check using Otaku's reports. Safe improvements update the Macro Skeleton with rationale; changes to requested scope, endpoint, genre promise, Priority 1/2/3 canon, or promised length budget require user approval.
 
 ```
  ① Loremaster → collect setting & narrative state (facts only)
@@ -70,8 +70,9 @@ The router does not require the user to provide the branches. It asks only when 
 
 ### Loop Safety & Collaborative Discussion
 - **Step-by-Step Buildup**: Rather than drafting a whole chapter, the router decomposes the scene brief. Each segment/paragraph is generated, verified, and revised in isolation. Once verified, it is locked into the **Accumulated Prefix Text** which acts as canon context for all subsequent segments.
-- **Seed-to-Fruit Narrative Growth**: The router records the seed, grows branches as a Macro Skeleton, attaches leaves through the existing feedback loop, refines flowers with verification and editing, and delivers fruit only after the requested scope is verified and recorded.
+- **Seed-to-Fruit Narrative Growth**: The router records the seed, grows branches as a Macro Skeleton with Length Budget, attaches leaves through the existing feedback loop, refines flowers with verification and editing, and delivers fruit only after the requested scope and promised length are verified and recorded.
 - **Agent-Authored Macro Skeleton**: Missing user-provided outlines do not block progress. The router authors a provisional Macro Skeleton unless the missing macro choice is mutually exclusive, high-impact, and impossible to infer.
+- **Length Budget**: Every branch and execution unit has target/minimum character counts before drafting. Actual counts come from canonical draft files or router-supplied draft candidate counts using the declared method; no scope is complete while it is `UNDER_LENGTH`.
 - **Editor Micro Focus**: Editor polishes prose, speech style, formatting, local causality, pacing, and immediate scene readability. It uses Macro Skeleton as a guardrail only and does not own whole-flow judgment.
 - **Otaku Branch Traversal Audit**: Otaku owns the macro-flow check. Every final PASS must include evidence that the unit still travels along the assigned branch.
 - **Skeleton Drift Check**: After every verified unit, the router checks Otaku's Branch Traversal Audit. Safe skeleton updates are logged; scope, endpoint, genre-promise, or canon-changing drift requires approval.

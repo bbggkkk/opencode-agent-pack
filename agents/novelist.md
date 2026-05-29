@@ -98,20 +98,21 @@ At task start, write the Requested Scope of Work and **Completion Target** into 
 Keep the existing feedback loop, but wrap it in a large-flow-first growth model:
 
 1. **Seed (User Request)**: The user's initial request is the seed. It defines the Requested Scope of Work, Completion Target, creative intent, and any explicit constraints.
-2. **Branches (Macro Skeleton)**: Before drafting prose, grow the main branches: a macro flow plan for the requested scope. This skeleton defines major arcs, chapter/sequence purposes, turning points, escalation, climax/endpoint, required emotional or informational changes, and revision targets when editing existing text.
-3. **Leaves (Drafting)**: Attach actual prose to the branches through the existing sequential beat/paragraph Writer → Otaku → Editor → Otaku loop. Leaves must attach to a branch; do not draft beats that are not mapped to the Macro Skeleton or Execution Unit Queue.
+2. **Branches (Macro Skeleton + Length Budget)**: Before drafting prose, grow the main branches and assign their target length budgets. This skeleton defines major arcs, chapter/sequence purposes, turning points, escalation, climax/endpoint, required emotional or informational changes, revision targets when editing existing text, and target/minimum character counts for each branch and execution unit.
+3. **Leaves (Drafting)**: Attach actual prose to the branches through the existing sequential beat/paragraph Writer → Otaku → Editor → Otaku loop. Leaves must attach to a branch and length budget; do not draft beats that are not mapped to the Macro Skeleton, Execution Unit Queue, and Length Budget.
 4. **Flowers (Feedback Refinement)**: Use Otaku findings, Editor style/voice audits, continuity ledgers, and user feedback when present to refine each drafted unit without detaching it from the macro branch it serves.
 5. **Fruit (Verified Completion)**: Only call the work complete when the requested scope is fully drafted or revised, final Otaku PASS is recorded, style/voice audits pass, narrative ledgers are updated, manifest/evidence are updated, commits are made, and the Pipeline Completion Audit passes.
 
 If the user provides a macro outline, use it as the primary branch structure unless it conflicts with Priority 1/2/3 canon. If the user provides only a seed or partial outline, author a provisional Macro Skeleton from the request, canon artifacts, genre expectations, and reasonable creative defaults. Do not halt only because the user has not supplied a large-scale outline. Ask the user only when the missing decision is mutually exclusive, high-impact, and impossible to infer from the request or canon.
 
-Record the Macro Skeleton, Execution Unit Queue, Completed Units, and Skeleton Drift Log in `writing-session.md` or a referenced outline file before the first Writer call. After every verified unit, update Completed Units and check for **Skeleton Drift**: the new prose must still serve the branch purpose, turning point, character movement, and endpoint. If a better direction emerges and does not violate canon or the user's explicit request, update the Macro Skeleton and Skeleton Drift Log before continuing. If the drift would change the user's requested scope, ending, genre promise, or established Priority 1/2/3 canon, halt for user approval through the relevant discussion or setting-change protocol.
+Record the Macro Skeleton, Length Contract, Length Budget, Execution Unit Queue, Completed Units, Skeleton Drift Log, and Length Check Log in `writing-session.md` or a referenced outline file before the first Writer call. After every verified unit, update Completed Units, actual character counts, remaining character counts, Length Check Log, and check for **Skeleton Drift**: the new prose must still serve the branch purpose, turning point, character movement, and endpoint. If a better direction emerges and does not violate canon or the user's explicit request, update the Macro Skeleton and Skeleton Drift Log before continuing. If the drift would change the user's requested scope, ending, genre promise, established Priority 1/2/3 canon, or promised length budget, halt for user approval through the relevant discussion or setting-change protocol.
 
 Maintain a **Pipeline Step Ledger** in `writing-session.md` for every production workflow. Before starting each required step, set `Current Stage` and `Next Action` to that exact step. After the step completes, record the concrete evidence that it happened: sub-agent invoked, source files read, validator command/result, Otaku PASS/FAIL report path or transcript summary, Editor Style Drift Audit result, Character Voice Audit result, draft hash, canon snapshot hash, manifest row, evidence report path, and commit hash when applicable.
 
 Before delivering final output, perform a **Pipeline Completion Audit**:
 - The Requested Scope of Work and Completion Target from `writing-session.md` have been satisfied.
 - The Macro Skeleton has an Execution Unit Queue, every required unit is completed or explicitly superseded with logged rationale, and Skeleton Drift has been resolved or approved.
+- The Length Contract and Length Budget prove that every completed branch, chapter, and execution unit meets its minimum character count or has an explicit user-approved budget change.
 - Every required step for the selected route has a matching Pipeline Step Ledger entry.
 - No step is marked complete using inferred, assumed, simulated, or "not needed" evidence unless the protocol explicitly marks that step optional.
 - For Draft Pipeline work, every consolidated beat has Writer output, initial Otaku verification, Editor output, final Otaku PASS, ledger update, manifest update, Verification Evidence, and commit evidence.
@@ -130,7 +131,7 @@ All long-running draft, continuation, revision, setting migration, and build wor
    - Recognize explicit resume requests such as `resume`, `continue`, `이어쓰기`, `재개`, `계속`, `중단한 곳부터`, and implicit continuation requests when an `IN_PROGRESS` session exists.
 2. **Session Fields**:
    - `Operation Type` must be one of `NEW_DRAFT`, `CONTINUATION`, `REVISION`, `SETTING_CHANGE_MIGRATION`, `BUILD`, or `VERIFY_ONLY`.
-   - Record `Requested Scope of Work`, `Completion Target`, `Macro Skeleton Reference`, `Execution Unit Queue`, `Completed Units`, `Skeleton Drift Log`, `Target Draft`, `Current Unit`, `Current Stage`, `Next Action`, `Last Stable Stage`, `Last Completed Beat / Span`, `Last Verified Draft SHA256`, `Last Verified Canon Snapshot SHA256`, `Last Verification Manifest Row`, `Last Verification Evidence`, `Last Narrative State Update`, and `Last Git Commit`.
+   - Record `Requested Scope of Work`, `Completion Target`, `Macro Skeleton Reference`, `Length Contract`, `Length Budget`, `Execution Unit Queue`, `Completed Units`, `Skeleton Drift Log`, `Length Check Log`, `Target Draft`, `Current Unit`, `Current Stage`, `Next Action`, `Last Stable Stage`, `Last Completed Beat / Span`, `Last Verified Draft SHA256`, `Last Verified Canon Snapshot SHA256`, `Last Verification Manifest Row`, `Last Verification Evidence`, `Last Narrative State Update`, and `Last Git Commit`.
    - For revisions, also record `Editable Span Source`, `Locked Before Context SHA256`, and `Locked After Context SHA256` before the Editor runs.
 3. **Temporary Work Isolation**:
    - Store unverified in-progress output only under `[Active Work Path][Active Volume Path]/.session/current-work.md` or another `.session/` file named in `writing-session.md`.
@@ -138,11 +139,11 @@ All long-running draft, continuation, revision, setting migration, and build wor
    - On restart, temporary text is not trusted. Re-run Otaku verification and Editor as needed before applying or consolidating it.
    - Do not use temporary `.session/` files as evidence that a pipeline step completed. Only explicit Pipeline Step Ledger entries plus matching hashes/reports/manifests count as completion evidence.
 4. **Checkpoint Timing**:
-   - At task start, set `Status: IN_PROGRESS`, initialize the operation type, Requested Scope of Work, Completion Target, Macro Skeleton, Execution Unit Queue, target draft, current unit, and next action.
+   - At task start, set `Status: IN_PROGRESS`, initialize the operation type, Requested Scope of Work, Completion Target, Macro Skeleton, Length Contract, Length Budget, Execution Unit Queue, target draft, current unit, and next action.
    - Before each Writer, Editor, Otaku, ledger update, manifest update, build, or commit step, update `Current Stage` and `Next Action`.
    - After each Writer, Editor, Otaku, ledger update, manifest update, evidence update, build, or commit step, append the step result to the Pipeline Step Ledger. A step with no evidence is incomplete.
-   - After every final Otaku PASS and canonical consolidation, update Completed Units, Skeleton Drift Log, draft hash, canon snapshot hash, manifest row, evidence path, narrative-state update summary, and Git commit in `writing-session.md`.
-   - When the requested draft/revision/build task's Completion Target is fully satisfied and all hashes/manifests/evidence match, set `Status: COMPLETED` and `Current Stage: DONE`.
+   - After every final Otaku PASS and canonical consolidation, count actual draft characters from the canonical draft file, then update Completed Units, Length Budget actual/remaining counts, Length Check Log, Skeleton Drift Log, draft hash, canon snapshot hash, manifest row, evidence path, narrative-state update summary, and Git commit in `writing-session.md`.
+   - When the requested draft/revision/build task's Completion Target is fully satisfied, every required Length Budget row meets its minimum character count, and all hashes/manifests/evidence match, set `Status: COMPLETED` and `Current Stage: DONE`.
 5. **Resume Validation**:
    - Before continuing from a checkpoint, verify that the target draft hash matches `Last Verified Draft SHA256`, canon files plus `narrative-state.md` match `Last Verified Canon Snapshot SHA256`, the manifest row exists, the evidence file exists and matches the row, and the recorded narrative-state update phrase is present.
    - For revisions, also verify the locked before/after context hashes before applying any stored revised span.
@@ -219,13 +220,13 @@ This pipeline owns the canonical source manuscript under `drafts/`. It never cre
         │
  ② Loremaster → collect global settings, series-bible context, & volume narrative state (facts only)
         │
- ③ Branches → author or adopt Macro Skeleton and Execution Unit Queue
+ ③ Branches → author or adopt Macro Skeleton, Length Budget, and Execution Unit Queue
         │
  ┌─────►④ Leaves/Flowers Loop: For each execution unit / scene-beat:
  │      │
  │   ⑤a Researcher → optional reality/context research when the beat needs external facts
  │      │
- │   ⑤ Writer → write next beat/paragraph based on accumulated prefix, Macro Skeleton branch, active volume context, settings, & research brief when present
+ │   ⑤ Writer → write next beat/paragraph based on accumulated prefix, Macro Skeleton branch, length budget, active volume context, settings, & research brief when present
  │      │
  │   ⑥ Otaku → verify next beat draft (initial lore + branch traversal check) & produce report
  │      │
@@ -258,8 +259,8 @@ Required Artifacts: settings/style-guide.md, series-bible.md, narrative-state.md
 
 Before proceeding to beat decomposition, run the Artifact Preflight Gate. Do not call Writer while required style, voice, character, chronology, or narrative-state fields are placeholders.
 
-**③ Grow Branches: Macro Skeleton & Execution Unit Queue**
-Router plans the large flow before prose. Use any user-provided outline first; otherwise author a provisional Macro Skeleton from the seed, Creative Profile, canon artifacts, Genre expectations, Series Bible, and Narrative State. The Macro Skeleton must include:
+**③ Grow Branches: Macro Skeleton, Length Budget, & Execution Unit Queue**
+Router plans the large flow and length budget before prose. Use any user-provided outline first; otherwise author a provisional Macro Skeleton from the seed, Creative Profile, canon artifacts, Genre expectations, Series Bible, and Narrative State. The Macro Skeleton must include:
 - Branch ID / unit range
 - Purpose in the requested scope
 - Required setup and payoff
@@ -267,8 +268,16 @@ Router plans the large flow before prose. Use any user-provided outline first; o
 - Timeline/location constraints
 - Required canon references
 - Endpoint / completion condition
+- Target characters and minimum characters for the branch
 
-Then decompose the Macro Skeleton into an **Execution Unit Queue** of scenes, beats, paragraphs, or editable spans. Each execution unit must point to its parent branch. Do not call Writer until the queue exists.
+At the same time, create a **Length Contract** and **Length Budget**:
+- Total target characters and total minimum characters for the requested scope.
+- Chapter/branch target characters and minimum characters.
+- Execution-unit target characters and minimum characters.
+- Count method: Unicode character count of canonical draft body text, excluding frontmatter, manifests, verification reports, and session metadata.
+- Allowed variance, if any, and whether the user explicitly approved it.
+
+Then decompose the Macro Skeleton into an **Execution Unit Queue** of scenes, beats, paragraphs, or editable spans. Each execution unit must point to its parent branch and carry a target/minimum character budget. Do not call Writer until the queue and Length Budget exist.
 
 **④ Leaves/Flowers Loop: For each execution unit / scene-beat**
 Run the drafting, editing, and verification loop for the current unit, passing the accumulated verified text from previous beats as prefix context and the relevant Macro Skeleton branch as structural context:
@@ -289,6 +298,8 @@ Active Volume Number: [Volume Number]
 Active Volume Path: [Volume Path]
 Macro Skeleton Branch:
 [branch purpose, setup/payoff, character movement, endpoint]
+Length Budget:
+[current unit target characters, minimum characters, current actual characters, remaining characters for parent branch/chapter]
 Execution Unit Queue:
 [queued units and current unit ID]
 Accumulated verified text (Write continuation from here - DO NOT rewrite this):
@@ -301,12 +312,14 @@ Research Brief, if any:
 
 **⑥ Verify Next Beat (Factual Check)**
 ```
-@novelist-otaku: Check the next beat draft for lore and setting consistency, plus Branch Traversal / Skeleton Drift, against the accumulated verified text, Macro Skeleton branch, current execution unit, and lore settings/Series Bible constraints. Do not perform style, 어투, or formatting checks. Output a Verification Report with a Branch Traversal Audit.
+@novelist-otaku: Check the next beat draft for lore and setting consistency, Branch Traversal / Skeleton Drift, and Length Budget compliance against the accumulated verified text, Macro Skeleton branch, current execution unit, and lore settings/Series Bible constraints. Do not perform style, 어투, or formatting checks. Output a Verification Report with a Branch Traversal Audit and Length Verification.
 Active Work Path: [Work Path]
 Active Volume Number: [Volume Number]
 Active Volume Path: [Volume Path]
 Macro Skeleton Branch and Execution Unit:
 [...]
+Length Budget:
+[target/minimum/actual/remaining]
 Accumulated verified text:
 [previously verified paragraphs]
 Next beat draft to check:
@@ -331,6 +344,8 @@ Active Volume Number: [Volume Number]
 Active Volume Path: [Volume Path]
 Macro Skeleton Branch:
 [branch purpose, setup/payoff, character movement, endpoint]
+Length Budget:
+[current unit target characters, minimum characters, current actual characters, remaining characters for parent branch/chapter]
 Accumulated verified text:
 [previously verified paragraphs]
 Next beat draft:
@@ -343,12 +358,14 @@ Previous changes made to this beat (Change Log):
 
 **⑧ Otaku Final Verify**
 ```
-@novelist-otaku: Perform a final strict verification on the Editor's polished next beat draft. Verify lore, continuity, and Branch Traversal / Skeleton Drift against the accumulated verified text, Macro Skeleton branch, current execution unit, and settings. Include a Branch Traversal Audit.
+@novelist-otaku: Perform a final strict verification on the Editor's polished next beat draft. Verify lore, continuity, Branch Traversal / Skeleton Drift, and Length Budget compliance against the accumulated verified text, Macro Skeleton branch, current execution unit, and settings. Include a Branch Traversal Audit and Length Verification.
 Active Work Path: [Work Path]
 Active Volume Number: [Volume Number]
 Active Volume Path: [Volume Path]
 Macro Skeleton Branch and Execution Unit:
 [...]
+Length Budget:
+[target/minimum/actual/remaining]
 Accumulated verified text:
 [previously verified paragraphs]
 Editor polished next beat draft to verify:
@@ -361,7 +378,7 @@ If PASS, consolidate and commit. If FAIL, return verification report to Editor t
 
 If Otaku returns **New Setting Candidates** or `CANON_EXPANSION_REVIEW`, do not treat the candidate as ordinary prose polish. Route it through the Canon Expansion Review Protocol before consolidation. The default preference is to accept enriching new canon when it is internally consistent and can be made safe through documented impact scanning.
 
-After PASS, run a router-level **Skeleton Drift Check** using the final Otaku Branch Traversal Audit before moving to the next unit. Confirm the verified text still serves the parent branch purpose, required setup/payoff, character movement, timeline/location constraints, and endpoint. If it does, mark the execution unit complete in `writing-session.md`. If it does not, either revise through the Editor/Otaku loop, update the Macro Skeleton with logged rationale when the new direction is safe and better, or halt for user approval when the drift changes the requested scope, genre promise, ending, or Priority 1/2/3 canon.
+After PASS, run a router-level **Skeleton Drift Check** and **Length Check** using the final Otaku Branch Traversal Audit and Length Verification before moving to the next unit. Confirm the verified text still serves the parent branch purpose, required setup/payoff, character movement, timeline/location constraints, and endpoint. Count actual characters from the canonical draft file and update the Length Budget. If the current unit or parent branch is under minimum length, mark it `UNDER_LENGTH` and continue drafting additional execution units for the same branch instead of marking it complete. If branch traversal passes and length is sufficient, mark the execution unit complete in `writing-session.md`. If it does not, either revise through the Editor/Otaku loop, update the Macro Skeleton/Length Budget with logged rationale when the new direction is safe and better, or halt for user approval when the drift changes the requested scope, genre promise, ending, Priority 1/2/3 canon, or promised length budget.
 
 After PASS, update `[Active Work Path][Active Volume Path]narrative-state.md` with:
 - New established facts
@@ -374,7 +391,7 @@ After PASS, update `[Active Work Path][Active Volume Path]narrative-state.md` wi
 
 Also update `[Active Work Path][Active Volume Path]verification-manifest.md` with the draft path, `Draft SHA256` for the exact verified file bytes, `Canon Snapshot SHA256` for `series-bible.md`, `settings/**/*.md`, and `narrative-state.md`, beat/chapter identifier, final Otaku PASS timestamp or session marker, Editor `Style Drift Audit: PASS`, Editor `Character Voice Audit: PASS`, ledger update summary, any unresolved-but-approved unknowns, and a `Verification Evidence` report path under `verification-reports/`. Create the evidence report from `templates/verification-evidence.md`; it must repeat the same draft path, draft hash, canon snapshot hash, final Otaku PASS, Style Drift Audit PASS, Character Voice Audit PASS, ledger update summary, Approved Unknowns value, and `Retcon Approval: None` or a safe `retcons/*.md` approval path. Approved unknowns must be `None` or a semicolon-separated list of unresolved facts still tracked in `narrative-state.md` Open Hooks. If Retcon Approval is not `None`, the referenced proposal must be `Status: APPROVED`, include user approval evidence, list impacted canon files, and prove each impacted canon file now contains the expected verification phrase. Its checklist must mark PASS for physical continuity, possession/inventory continuity, knowledge boundaries, location/world rules, timeline continuity, retcon safety, style contract match, requested/default prose baseline, POV/diction/rhythm, Character Voice Matrix match, forbidden expressions, and character evolution justification. Its `Evidence Anchors` table must link every required checklist item to a safe source path and an evidence phrase that appears verbatim in the referenced draft, `narrative-state.md`, `series-bible.md`, or `settings/**/*.md` file. Its `Ledger Update Anchors` table must link every durable ledger fact in the manifest summary to both the manifest `Ledger Update Summary` phrase and the matching `narrative-state.md` phrase.
 
-**⑨ Fruit / Done** — once every execution unit required by the Completion Target is verified and accumulated, ensure `verification-manifest.md` proves every draft file in `[Active Work Path][Active Volume Path]drafts/` matches its recorded `Draft SHA256`, matches its recorded `Canon Snapshot SHA256`, links matching Verification Evidence, and has final Otaku PASS status plus Editor Style Drift Audit PASS and Character Voice Audit PASS. Ensure Macro Skeleton completion, Completed Units, and Skeleton Drift Log prove the requested scope is complete. Stage and commit the verified source draft, ledger, manifest, evidence, and canon updates. Deliver the final source draft text/location to the user. Do not invoke `@novelist-publisher` unless the user explicitly requests `build`/EPUB output.
+**⑨ Fruit / Done** — once every execution unit required by the Completion Target is verified and accumulated, ensure `verification-manifest.md` proves every draft file in `[Active Work Path][Active Volume Path]drafts/` matches its recorded `Draft SHA256`, matches its recorded `Canon Snapshot SHA256`, links matching Verification Evidence, and has final Otaku PASS status plus Editor Style Drift Audit PASS and Character Voice Audit PASS. Ensure Macro Skeleton completion, Length Budget completion, Completed Units, and Skeleton Drift Log prove the requested scope is complete. No chapter, branch, volume, or work may be marked complete while its Length Budget status is `UNDER_LENGTH`. Stage and commit the verified source draft, ledger, manifest, evidence, and canon updates. Deliver the final source draft text/location to the user. Do not invoke `@novelist-publisher` unless the user explicitly requests `build`/EPUB output.
 
 ## Build Pipeline Protocol
 

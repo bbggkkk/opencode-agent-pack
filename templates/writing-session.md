@@ -9,6 +9,7 @@
 - Completion Target: TBD
 - Seed Summary: TBD
 - Macro Skeleton Reference: TBD
+- Length Contract Reference: TBD
 - Active Work Path: TBD
 - Active Volume Path: TBD
 - Target Draft: TBD
@@ -32,6 +33,10 @@
 - Current Branch ID: TBD
 - Unit Type: TBD
 - Unit ID: TBD
+- Unit Target Characters: TBD
+- Unit Minimum Characters: TBD
+- Unit Actual Characters: TBD
+- Unit Remaining Characters: TBD
 - Scene / Chapter Outline Reference: TBD
 - Accumulated Prefix Source: TBD
 - Editable Span Source: TBD
@@ -43,15 +48,29 @@
 
 ## Macro Skeleton
 
-| Branch ID | Purpose | Required Setup | Required Payoff | Character / Emotional Movement | Constraints | Endpoint |
-|-----------|---------|----------------|-----------------|--------------------------------|-------------|----------|
-| TBD | TBD | TBD | TBD | TBD | TBD | TBD |
+| Branch ID | Purpose | Required Setup | Required Payoff | Character / Emotional Movement | Constraints | Endpoint | Target Chars | Min Chars |
+|-----------|---------|----------------|-----------------|--------------------------------|-------------|----------|--------------|-----------|
+| TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
+
+## Length Contract
+
+- Count Method: Unicode character count of canonical draft body text, excluding frontmatter, manifests, verification reports, and session metadata
+- Total Target Characters: TBD
+- Total Minimum Characters: TBD
+- Allowed Variance: TBD
+- User Approved Length Change: NONE
+
+## Length Budget
+
+| Scope ID | Scope Type | Draft Path | Target Chars | Min Chars | Actual Chars | Remaining Chars | Status | Evidence |
+|----------|------------|------------|--------------|-----------|--------------|-----------------|--------|----------|
+| TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
 
 ## Execution Unit Queue
 
-| Unit ID | Parent Branch | Unit Type | Required Outcome | Status | Evidence |
-|---------|---------------|-----------|------------------|--------|----------|
-| TBD | TBD | TBD | TBD | TBD | TBD |
+| Unit ID | Parent Branch | Unit Type | Required Outcome | Target Chars | Min Chars | Actual Chars | Remaining Chars | Status | Evidence |
+|---------|---------------|-----------|------------------|--------------|-----------|--------------|-----------------|--------|----------|
+| TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
 
 ## Skeleton Drift Log
 
@@ -59,12 +78,19 @@
 |---------|--------------------|----------|-------------------------------|
 | TBD | TBD | TBD | TBD |
 
+## Length Check Log
+
+| Scope ID | Count Method | Count Command / Evidence | Actual Chars | Min Chars | Remaining Chars | Verdict |
+|----------|--------------|--------------------------|--------------|-----------|-----------------|---------|
+| TBD | TBD | TBD | TBD | TBD | TBD | TBD |
+
 ## Pending Verification
 
 - Writer Output: NONE
 - Initial Otaku Report: NONE
 - Editor Output: NONE
 - Final Otaku Verdict: NONE
+- Length Verification: NONE
 - Style Drift Audit: NONE
 - Character Voice Audit: NONE
 - Ledger Update Pending: NONE
@@ -82,10 +108,16 @@ Scope rule: `Status` cannot be set to `COMPLETED` until the Requested Scope of W
 
 Growth rule: do not start leaf drafting until the Macro Skeleton and Execution Unit Queue exist. Every drafted unit must map to a Parent Branch, and every completed unit must have a Skeleton Drift Log entry proving it still serves the branch or that an approved/safe skeleton update was recorded.
 
+Length rule: do not start leaf drafting until the Length Contract and Length Budget exist. After every consolidation, count actual characters from the canonical draft file and update Actual Chars and Remaining Chars. Do not mark any unit, branch, chapter, volume, or work complete while its Length Budget Status is `UNDER_LENGTH`.
+
 ## Resume Checklist
 
 - [ ] Confirm Requested Scope of Work and Completion Target are recorded.
 - [ ] Confirm Macro Skeleton and Execution Unit Queue exist before drafting.
+- [ ] Confirm Length Contract and Length Budget exist before drafting.
+- [ ] Confirm every completed unit has a Length Check Log entry with count evidence.
+- [ ] Confirm Actual Chars and Remaining Chars were refreshed from canonical draft files.
+- [ ] Confirm no required Length Budget row is UNDER_LENGTH before marking completion.
 - [ ] Confirm each completed unit has a Skeleton Drift Log entry.
 - [ ] Confirm target draft exists or is intentionally new.
 - [ ] Confirm target draft hash matches Last Verified Draft SHA256, unless Last Stable Stage is NONE.

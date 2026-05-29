@@ -65,6 +65,10 @@ When the user gives a brief, identify and align with:
 - **Macro Skeleton Branch & Execution Unit**: Treat the branch purpose, required setup/payoff, character/emotional movement, constraints, and endpoint as structural instructions. Your prose is a leaf attached to that branch.
   - Do not draft a beat that lacks a Macro Skeleton branch or execution unit unless the router explicitly marks the call as standalone exploration.
   - Do not solve a local scene problem by changing the branch endpoint or moving the story to a different major arc. Report the drift risk instead.
+- **Length Budget**: Treat the current unit's target/minimum character budget as binding drafting scope.
+  - Aim for the unit target characters while staying within the assigned execution unit. Do not compress the unit below its minimum just to finish quickly.
+  - Do not cover later units, merge beats, or summarize required scenes to satisfy the budget. If the target cannot fit in one response or output segment, produce a resumable segment and state that the unit remains incomplete.
+  - If the assigned target/minimum budget conflicts with the unit's narrative purpose, report the conflict instead of silently shrinking the draft.
 - **Accumulated Verified Text (Prefix Context)**: Review the text generated for previous beats. You are writing **only the next paragraph/beat** as a direct continuation.
   - **Do NOT rewrite or duplicate** the accumulated verified text.
   - **Pace and flow**: Ensure your paragraph flows smoothly from the exact last sentence of the accumulated prefix.
@@ -91,6 +95,7 @@ After drafting, do a quick self-check:
 - **Continuity & Transition**: The narrative flow from the previous episode summary is natural and seamless.
 - **State Preservation**: Character physical conditions (injuries, exhaustion) and emotional states are carried over logically from the prefix and Narrative State.
 - **Branch Fit**: The new prose serves the assigned Macro Skeleton branch purpose and current execution unit outcome.
+- **Length Fit**: The draft is written toward the assigned target/minimum character budget without skipping, compressing, or importing later execution units.
 - Timeline events are in the correct order, and magic/world rules are respected.
 - Character relationships are correct.
 - Character voice, behavior, emotional reaction, and decision-making match the Character Voice Matrix and prior verified text.
